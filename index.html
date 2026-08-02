@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- All editable text lives in content.js — edit that file, not the markup below. -->
+<script src="./content.js"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -44,10 +46,10 @@
 
       <!-- Top prompt -->
       <div style="position:absolute;top:6vh;left:50%;transform:translateX(-50%);text-align:center;pointer-events:none;z-index:5;max-width:min(92vw,860px);padding:26px clamp(20px,4vw,44px);background:rgba(0,3,0,.62);border:1px solid rgba(0,255,90,.22);border-radius:16px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);box-shadow:0 12px 44px rgba(0,0,0,.55);">
-        <div style="font-size:12px;letter-spacing:.5em;color:#5cf5a0;margin-bottom:14px;">// SYSTEM :: WAKE_PROTOCOL — READY</div>
-        <div style="font-size:clamp(30px,6.2vw,74px);line-height:.98;letter-spacing:.12em;color:#f4fff8;text-shadow:0 2px 4px rgba(0,0,0,.85),0 0 26px rgba(0,255,90,.6);">VALERY&nbsp;KASMACH</div>
-        <div style="margin-top:14px;font-size:clamp(12px,1.7vw,17px);letter-spacing:.32em;color:#7dffb0;text-shadow:0 1px 3px rgba(0,0,0,.9);">QA&nbsp;AUTOMATION&nbsp;ENGINEER&nbsp;·&nbsp;PERFORMANCE&nbsp;·&nbsp;AI</div>
-        <div style="margin-top:26px;font-size:clamp(13px,1.8vw,18px);letter-spacing:.18em;color:#f4fff8;text-shadow:0 1px 3px rgba(0,0,0,.9);">MAKE&nbsp;YOUR&nbsp;CHOICE<span style="display:inline-block;width:.6em;height:1.1em;margin-left:.15em;vertical-align:-.15em;background:#00ff5a;animation:mxCaret 1s step-end infinite;"></span></div>
+        <div style="font-size:12px;letter-spacing:.5em;color:#5cf5a0;margin-bottom:14px;">{{ systemLine }}</div>
+        <div style="font-size:clamp(30px,6.2vw,74px);line-height:.98;letter-spacing:.12em;color:#f4fff8;text-shadow:0 2px 4px rgba(0,0,0,.85),0 0 26px rgba(0,255,90,.6);">{{ firstName }}&nbsp;{{ lastName }}</div>
+        <div style="margin-top:14px;font-size:clamp(12px,1.7vw,17px);letter-spacing:.32em;color:#7dffb0;text-shadow:0 1px 3px rgba(0,0,0,.9);">{{ tagline }}</div>
+        <div style="margin-top:26px;font-size:clamp(13px,1.8vw,18px);letter-spacing:.18em;color:#f4fff8;text-shadow:0 1px 3px rgba(0,0,0,.9);">{{ choicePrompt }}<span style="display:inline-block;width:.6em;height:1.1em;margin-left:.15em;vertical-align:-.15em;background:#00ff5a;animation:mxCaret 1s step-end infinite;"></span></div>
       </div>
 
       <!-- WIDE: pill hotspots aligned over the hands -->
@@ -61,8 +63,8 @@
           </div>
           <sc-if value="{{ redHover }}" hint-placeholder-val="{{ false }}">
             <div style="position:absolute;left:30%;top:34%;transform:translate(-50%,0);text-align:center;pointer-events:none;z-index:9;width:min(40vw,420px);animation:mxFlick 3s infinite;padding:14px 18px;background:rgba(14,0,3,.78);border:1px solid rgba(255,60,70,.5);border-radius:12px;backdrop-filter:blur(4px);box-shadow:0 8px 30px rgba(0,0,0,.6);">
-              <div style="font-size:clamp(15px,2vw,22px);color:#ff7d88;text-shadow:0 1px 3px rgba(0,0,0,.9),0 0 18px rgba(255,40,60,.7);letter-spacing:.06em;">Wake up in the digital reality</div>
-              <div style="margin-top:6px;font-size:12px;letter-spacing:.28em;color:#ffb3ba;">&gt; ENTER_DIGITAL_RESUME</div>
+              <div style="font-size:clamp(15px,2vw,22px);color:#ff7d88;text-shadow:0 1px 3px rgba(0,0,0,.9),0 0 18px rgba(255,40,60,.7);letter-spacing:.06em;">{{ redTitle }}</div>
+              <div style="margin-top:6px;font-size:12px;letter-spacing:.28em;color:#ffb3ba;">&gt; {{ redCode }}</div>
             </div>
           </sc-if>
 
@@ -74,8 +76,8 @@
           </div>
           <sc-if value="{{ blueHover }}" hint-placeholder-val="{{ false }}">
             <div style="position:absolute;left:70%;top:34%;transform:translate(-50%,0);text-align:center;pointer-events:none;z-index:9;width:min(40vw,420px);animation:mxFlick 3s infinite;padding:14px 18px;background:rgba(0,4,16,.78);border:1px solid rgba(60,140,255,.5);border-radius:12px;backdrop-filter:blur(4px);box-shadow:0 8px 30px rgba(0,0,0,.6);">
-              <div style="font-size:clamp(15px,2vw,22px);color:#8ec0ff;text-shadow:0 1px 3px rgba(0,0,0,.9),0 0 18px rgba(50,120,255,.7);letter-spacing:.06em;">Take the classic path</div>
-              <div style="margin-top:6px;font-size:12px;letter-spacing:.28em;color:#c2d8ff;">&gt; OPEN_CLASSIC_PDF</div>
+              <div style="font-size:clamp(15px,2vw,22px);color:#8ec0ff;text-shadow:0 1px 3px rgba(0,0,0,.9),0 0 18px rgba(50,120,255,.7);letter-spacing:.06em;">{{ blueTitle }}</div>
+              <div style="margin-top:6px;font-size:12px;letter-spacing:.28em;color:#c2d8ff;">&gt; {{ blueCode }}</div>
             </div>
           </sc-if>
         </div>
@@ -91,14 +93,14 @@
             <!-- RED -->
             <div onClick="{{ onRed }}" style="flex:1;min-width:0;cursor:pointer;text-align:center;padding:15px 10px;background:rgba(14,0,3,.82);border:1px solid rgba(255,60,70,.6);border-radius:14px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);box-shadow:0 8px 26px rgba(0,0,0,.6),0 0 22px rgba(255,40,60,.22);">
               <div style="font-size:clamp(14px,4vw,17px);letter-spacing:.12em;color:#ff8a94;text-shadow:0 0 14px rgba(255,40,60,.7);">◉ RED PILL</div>
-              <div style="margin-top:6px;font-size:12px;line-height:1.35;color:#ffd0d5;">Wake up in the digital reality</div>
-              <div style="margin-top:8px;font-size:10px;letter-spacing:.16em;color:#ffb3ba;">&gt; ENTER_DIGITAL_RESUME</div>
+              <div style="margin-top:6px;font-size:12px;line-height:1.35;color:#ffd0d5;">{{ redTitle }}</div>
+              <div style="margin-top:8px;font-size:10px;letter-spacing:.16em;color:#ffb3ba;">&gt; {{ redCode }}</div>
             </div>
             <!-- BLUE -->
             <div onClick="{{ onBlue }}" style="flex:1;min-width:0;cursor:pointer;text-align:center;padding:15px 10px;background:rgba(0,4,16,.82);border:1px solid rgba(60,140,255,.6);border-radius:14px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);box-shadow:0 8px 26px rgba(0,0,0,.6),0 0 22px rgba(50,120,255,.22);">
               <div style="font-size:clamp(14px,4vw,17px);letter-spacing:.12em;color:#9ec6ff;text-shadow:0 0 14px rgba(50,120,255,.7);">◉ BLUE PILL</div>
-              <div style="margin-top:6px;font-size:12px;line-height:1.35;color:#cfe2ff;">Take the classic path</div>
-              <div style="margin-top:8px;font-size:10px;letter-spacing:.16em;color:#c2d8ff;">&gt; OPEN_CLASSIC_PDF</div>
+              <div style="margin-top:6px;font-size:12px;line-height:1.35;color:#cfe2ff;">{{ blueTitle }}</div>
+              <div style="margin-top:8px;font-size:10px;letter-spacing:.16em;color:#c2d8ff;">&gt; {{ blueCode }}</div>
             </div>
           </div>
         </div>
@@ -136,10 +138,10 @@
         <header style="margin-bottom:96px;">
           <div data-dec style="font-size:12px;letter-spacing:.4em;color:#3df08a;margin-bottom:18px;">&gt; DECRYPTING_IDENTITY ...</div>
           <h1 style="margin:0;font-size:clamp(40px,9vw,104px);line-height:.92;letter-spacing:.04em;color:#eafff2;text-shadow:0 0 34px rgba(0,255,90,.45);">
-            <span data-dec>VALERY</span><br /><span data-dec style="color:#00ff5a;text-shadow:0 0 34px rgba(0,255,90,.8);">KASMACH</span>
+            <span data-dec>{{ firstName }}</span><br /><span data-dec style="color:#00ff5a;text-shadow:0 0 34px rgba(0,255,90,.8);">{{ lastName }}</span>
           </h1>
-          <div data-dec style="margin-top:22px;font-size:clamp(15px,2.4vw,22px);letter-spacing:.14em;color:#7dffb0;">QA AUTOMATION ENGINEER / QA FULL STACK</div>
-          <div data-dec style="margin-top:8px;font-size:clamp(12px,1.8vw,16px);letter-spacing:.22em;color:#39d97a;">PYTHON · MOBILE · PERFORMANCE · AI-DRIVEN TOOLING</div>
+          <div data-dec style="margin-top:22px;font-size:clamp(15px,2.4vw,22px);letter-spacing:.14em;color:#7dffb0;">{{ roleLine }}</div>
+          <div data-dec style="margin-top:8px;font-size:clamp(12px,1.8vw,16px);letter-spacing:.22em;color:#39d97a;">{{ roleSub }}</div>
           <div style="margin-top:30px;display:flex;flex-wrap:wrap;gap:12px;font-size:13px;">
             <a href="mailto:{{ email }}" style="border:1px solid rgba(0,255,90,.35);padding:9px 14px;border-radius:8px;letter-spacing:.08em;">✉ {{ email }}</a>
             <a href="tel:{{ phone }}" style="border:1px solid rgba(0,255,90,.35);padding:9px 14px;border-radius:8px;letter-spacing:.08em;">☏ {{ phone }}</a>
@@ -156,9 +158,9 @@
           </div>
           <p style="max-width:760px;font-size:clamp(15px,2.1vw,20px);line-height:1.75;color:#cfffe0;text-align:justify;text-justify:inter-word;hyphens:auto;-webkit-hyphens:auto;">{{ about }}</p>
           <div style="margin-top:22px;display:flex;flex-wrap:wrap;gap:10px;font-size:12px;letter-spacing:.14em;color:#7dffb0;">
-            <span data-stagger style="padding:6px 12px;border:1px solid rgba(0,255,90,.3);border-radius:20px;">ISTQB CERTIFIED</span>
-            <span data-stagger style="padding:6px 12px;border:1px solid rgba(0,255,90,.3);border-radius:20px;">CONFERENCE SPEAKER</span>
-            <span data-stagger style="padding:6px 12px;border:1px solid rgba(0,255,90,.3);border-radius:20px;">MENTOR</span>
+            <sc-for list="{{ badges }}" as="badge" hint-placeholder-count="3">
+              <span data-stagger style="padding:6px 12px;border:1px solid rgba(0,255,90,.3);border-radius:20px;">{{ badge }}</span>
+            </sc-for>
           </div>
         </section>
 
@@ -263,7 +265,7 @@
         <!-- CTA -->
         <section data-reveal style="text-align:center;opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;">
           <div data-dec style="font-size:clamp(18px,3vw,28px);color:#00ff5a;letter-spacing:.08em;text-shadow:0 0 22px rgba(0,255,90,.6);">&gt; END_OF_TRANSMISSION</div>
-          <p style="margin:16px auto 26px;max-width:520px;font-size:15px;line-height:1.7;color:#bfffd6;">References available upon request. Prefer the paper trail? Take the classic route.</p>
+          <p style="margin:16px auto 26px;max-width:520px;font-size:15px;line-height:1.7;color:#bfffd6;">{{ ctaText }}</p>
           <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
             <a href="{{ pdfUrl }}" target="_blank" rel="noopener" style="padding:14px 22px;border:1px solid rgba(60,140,255,.7);border-radius:10px;color:#8ec0ff;letter-spacing:.12em;font-size:13px;box-shadow:0 0 24px rgba(50,120,255,.3);">↳ DOWNLOAD CLASSIC PDF</a>
             <button onClick="{{ onBack }}" style="padding:14px 22px;background:transparent;border:1px solid rgba(0,255,90,.5);border-radius:10px;color:#7dffb0;font-family:inherit;letter-spacing:.12em;font-size:13px;cursor:pointer;">↺ BACK TO CHOICE</button>
@@ -329,7 +331,7 @@ class Component extends DCLogic {
   // NOTE: swap this URL for a Google Drive share link if desired.
   onBlue = () => { window.open(this.pdfUrl(), '_blank', 'noopener'); };
   onBack = () => { this.setState({ screen: 'landing', hover: null }); };
-  pdfUrl = () => this.props.pdfUrl ?? 'https://drive.google.com/file/d/1rcLT5rTPbU3CxjUbxhVAKpU8eU7eyvgS/view?usp=sharing';
+  pdfUrl = () => this.props.pdfUrl ?? (window.CV_CONTENT && window.CV_CONTENT.pdfUrl) ?? 'https://drive.google.com/file/d/1rcLT5rTPbU3CxjUbxhVAKpU8eU7eyvgS/view?usp=sharing';
 
   _startRainNode(canvas, key, reactive) {
     if (!canvas) return;
@@ -642,6 +644,9 @@ class Component extends DCLogic {
   renderVals() {
     const s = this.state;
     const rh = s.hover === 'red', bh = s.hover === 'blue';
+    // All copy comes from content.js (window.CV_CONTENT); L = its landing sub-object.
+    const C = (typeof window !== 'undefined' && window.CV_CONTENT) || {};
+    const L = C.landing || {};
     return {
       showLanding: s.screen === 'landing',
       zooming: s.screen === 'zoom',
@@ -667,54 +672,26 @@ class Component extends DCLogic {
       onEnterBlue: () => this.setState({ hover: 'blue' }),
       onLeave: () => this.setState({ hover: null }),
       onRed: this.onRed, onBlue: this.onBlue, onBack: this.onBack,
+      // ---- identity + landing copy ----
+      firstName: C.firstName, lastName: C.lastName,
+      systemLine: L.systemLine, tagline: L.tagline, choicePrompt: L.choicePrompt,
+      redTitle: L.redTitle, redCode: L.redCode,
+      blueTitle: L.blueTitle, blueCode: L.blueCode,
+      // ---- resume copy ----
       pdfUrl: this.pdfUrl(),
-      email: 'vkasmach@gmail.com',
-      phone: '+370 66 943309',
-      about: "QA Engineer / AQA with 8+ years of experience spanning Fullstack QA, Automation, and Client Performance testing. Equally effective as the sole engineer in an early-stage startup or inside a 300+ person game studio — adapting QA strategy to any team scale, domain, and risk profile. My focus: turning quality into a competitive advantage through automation, performance insight, and AI-driven tooling. I build things that last — frameworks, pipelines, and processes that save teams time long after I've moved on to the next challenge.",
-      highlights: [
-        { stat: '5×', tag: 'FASTER RELEASES', text: 'Scaled the mobile device farm and redesigned execution pipelines — cutting full regression runtime from 10–20h to ~2–3h.' },
-        { stat: '98%', tag: 'REGRESSION COVERAGE', text: 'Grew automated coverage from 30% → 98% and first-run pass rate from 70% → 99–100%, driving post-release incidents to near zero.' },
-        { stat: '1-click', tag: 'AUTOMATION', text: 'Slack/Jira integrations deliver full automated reports from a single task — saving 1–5 days of manual work per sprint.' },
-        { stat: 'AI/ML', tag: 'INTEGRATION', text: 'Integrated LLM tooling (Claude, Cursor) into daily workflows and built datasets to train a net for content-quality detection.' },
-        { stat: '0→4', tag: 'TEAM GROWTH', text: 'Progressed from sole QA engineer building teams from scratch to Client Performance QA in a 300+ person studio.' },
-        { stat: '100M+', tag: 'CROSS-INDUSTRY', text: 'Delivered quality for mobile games, health tech and award-winning startups — each with its own risk & compliance profile.' },
-      ],
-      skillGroups: [
-        { name: 'LANGUAGES & FRAMEWORKS', items: ['Python', 'pytest', 'PyCharm', 'Playwright'] },
-        { name: 'MOBILE AUTOMATION', items: ['Airtest', 'Poco', 'iOS WebDriver', 'Device farm mgmt'] },
-        { name: 'CI/CD & INFRASTRUCTURE', items: ['GitHub Actions', 'CI/CD', 'YAML', 'Pipelines'] },
-        { name: 'PERFORMANCE', items: ['Perf profiling', 'Custom tools', 'Charles Proxy', 'Frame/memory analysis'] },
-        { name: 'API & QA TOOLS', items: ['REST API', 'Postman', 'TestRail', 'Jira', 'Confluence'] },
-        { name: 'AI / ML', items: ['Claude', 'Cursor', 'LLM tooling', 'Dataset building'] },
-      ],
-      platforms: ['Android', 'iOS', 'macOS', 'Linux', 'Windows'],
-      experience: [
-        { role: 'AQA → Client Performance QA Engineer', company: 'Moon Active — Family Island / Family Bay · 300+ studio', period: '2022 — PRESENT', bullets: [
-          'Built custom internal performance tools (TrueSight, StandaloneProfiler) that became studio-wide standards for reproducible measurement.',
-          'Led complex SlowFrameTime investigations, diagnosing non-trivial regressions and shipping actionable hotfixes with engineering.',
-          'Engineered automated performance reporting and on-device profiling of loading time, frame drops and memory on real devices.',
-          'As part of a 10-person AQA team, built & maintained 500+ E2E tests on real iOS/Android via the device farm.',
-          'Scaled the farm and cut full regression from 10–20h to ~2–3h; grew coverage 30% → 98%, pass rate 70% → 99–100%.',
-        ] },
-        { role: 'QA Manual → QA Full Stack / AQA (Python)', company: 'Melsoft — My Cafe', period: '2019 — 2022', bullets: [
-          'Owned the full feature quality cycle: test-case authoring → manual testing → automated coverage → infra support.',
-          'Transitioned the role from 80% manual / 20% automation to 100% automated testing, driving a tech-first quality approach.',
-          "Implemented LiveOps 'fool-proofing' guards preventing misconfigured events from reaching production.",
-          "Delivered internal talk 'Charles Proxy: Simplifying Tester Life' (2020), adopted as the team's API-testing reference.",
-        ] },
-        { role: 'QA Manual → QA Team Lead', company: 'Blak-IT.com', period: '2018 — 2019', bullets: [
-          'Joined as sole QA engineer and built the entire QA function from scratch: processes, docs, bug tracking, reporting standards.',
-          'Scaled the team to 4 engineers as QA Lead — setting goals, running reviews, establishing engineering standards.',
-          'Managed up to 4 concurrent projects across healthcare, fitness, engineering and fintech (Profy — Best Startup of 2019, Georgia).',
-        ] },
-      ],
-      education: [
-        { year: '2011 — 2016', title: 'BSc · Computer Science & Electronics', sub: 'Belarusian State University of Informatics and Radioelectronics' },
-        { year: '2019', title: 'Test Manager', sub: 'Quality Lab' },
-        { year: '2018 / 2019', title: 'Mobile Software Testing · Test Planning & Estimation', sub: 'IT Academy' },
-        { year: '2025', title: 'Cursor Basics · Secure Programming', sub: 'Moon Active (Internal) · ISTQB Foundation Level' },
-      ],
-      languages: ['English — Professional', 'Russian — Native'],
+      email: C.email,
+      phone: C.phone,
+      roleLine: C.roleLine,
+      roleSub: C.roleSub,
+      about: C.about,
+      badges: C.badges || [],
+      highlights: C.highlights || [],
+      skillGroups: C.skillGroups || [],
+      platforms: C.platforms || [],
+      experience: C.experience || [],
+      education: C.education || [],
+      languages: C.languages || [],
+      ctaText: C.ctaText,
     };
   }
 }
