@@ -33,7 +33,7 @@
   <sc-if value="{{ showLanding }}" hint-placeholder-val="{{ true }}">
     <div style="position:absolute;inset:0;">
       <!-- HERO: the choice video, looping forever -->
-      <video ref="{{ bindVideo }}" id="mx-hero-video" autoplay muted loop playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+      <video ref="{{ bindVideo }}" id="mx-hero-video" autoplay muted loop playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:{{ videoFit }};">
         <source src="assets/hands_new.mp4" type="video/mp4" />
       </video>
       <canvas ref="{{ bindLandRain }}" id="mx-land-rain" style="position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;mix-blend-mode:screen;opacity:.42;"></canvas>
@@ -86,22 +86,22 @@
         <div>
           <!-- RED (left palm) -->
           <div onClick="{{ onRed }}"
-               style="position:absolute;left:24%;top:66%;transform:translate(-50%,-50%);width:34vw;max-width:180px;height:34vw;max-height:180px;border-radius:50%;cursor:pointer;z-index:8;">
+               style="position:absolute;left:30%;top:{{ narrowPalmTop }};transform:translate(-50%,-50%);width:34vw;max-width:180px;height:34vw;max-height:180px;border-radius:50%;cursor:pointer;z-index:8;">
             <div style="position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(255,70,80,.75);box-shadow:0 0 34px rgba(255,40,60,.75),inset 0 0 26px rgba(255,40,60,.5);animation:mxPulse 2.6s ease-in-out infinite;"></div>
             <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58%;height:58%;border-radius:50%;background:radial-gradient(circle,rgba(255,40,60,.55) 0%,rgba(255,40,60,0) 70%);"></div>
           </div>
-          <div onClick="{{ onRed }}" style="position:absolute;left:24%;top:66%;transform:translate(-50%,calc(-50% - 20vw));text-align:center;z-index:9;width:44vw;pointer-events:auto;cursor:pointer;padding:10px 12px;background:rgba(14,0,3,.8);border:1px solid rgba(255,60,70,.55);border-radius:12px;backdrop-filter:blur(4px);box-shadow:0 8px 26px rgba(0,0,0,.6);">
+          <div onClick="{{ onRed }}" style="position:absolute;left:30%;top:calc({{ narrowPalmTop }} + 19vw);transform:translate(-50%,0);text-align:center;z-index:9;width:44vw;pointer-events:auto;cursor:pointer;padding:10px 12px;background:rgba(14,0,3,.8);border:1px solid rgba(255,60,70,.55);border-radius:12px;backdrop-filter:blur(4px);box-shadow:0 8px 26px rgba(0,0,0,.6);">
             <div style="font-size:clamp(13px,3.6vw,17px);color:#ff8a94;text-shadow:0 1px 3px rgba(0,0,0,.9);letter-spacing:.04em;line-height:1.25;">◉ КРАСНАЯ<br />Пробудиться в цифровой реальности</div>
             <div style="margin-top:5px;font-size:10px;letter-spacing:.2em;color:#ffb3ba;">&gt; ENTER_DIGITAL_RESUME</div>
           </div>
 
           <!-- BLUE (right palm) -->
           <div onClick="{{ onBlue }}"
-               style="position:absolute;left:76%;top:66%;transform:translate(-50%,-50%);width:34vw;max-width:180px;height:34vw;max-height:180px;border-radius:50%;cursor:pointer;z-index:8;">
+               style="position:absolute;left:70%;top:{{ narrowPalmTop }};transform:translate(-50%,-50%);width:34vw;max-width:180px;height:34vw;max-height:180px;border-radius:50%;cursor:pointer;z-index:8;">
             <div style="position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(70,150,255,.75);box-shadow:0 0 34px rgba(50,120,255,.75),inset 0 0 26px rgba(50,120,255,.5);animation:mxPulse 2.6s ease-in-out infinite .6s;"></div>
             <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58%;height:58%;border-radius:50%;background:radial-gradient(circle,rgba(50,120,255,.55) 0%,rgba(50,120,255,0) 70%);"></div>
           </div>
-          <div onClick="{{ onBlue }}" style="position:absolute;left:76%;top:66%;transform:translate(-50%,calc(-50% - 20vw));text-align:center;z-index:9;width:44vw;pointer-events:auto;cursor:pointer;padding:10px 12px;background:rgba(0,4,16,.8);border:1px solid rgba(60,140,255,.55);border-radius:12px;backdrop-filter:blur(4px);box-shadow:0 8px 26px rgba(0,0,0,.6);">
+          <div onClick="{{ onBlue }}" style="position:absolute;left:70%;top:calc({{ narrowPalmTop }} + 19vw);transform:translate(-50%,0);text-align:center;z-index:9;width:44vw;pointer-events:auto;cursor:pointer;padding:10px 12px;background:rgba(0,4,16,.8);border:1px solid rgba(60,140,255,.55);border-radius:12px;backdrop-filter:blur(4px);box-shadow:0 8px 26px rgba(0,0,0,.6);">
             <div style="font-size:clamp(13px,3.6vw,17px);color:#9ec6ff;text-shadow:0 1px 3px rgba(0,0,0,.9);letter-spacing:.04em;line-height:1.25;">◉ СИНЯЯ<br />Принять классический путь</div>
             <div style="margin-top:5px;font-size:10px;letter-spacing:.2em;color:#c2d8ff;">&gt; OPEN_CLASSIC_PDF</div>
           </div>
@@ -657,6 +657,13 @@ class Component extends DCLogic {
       bindRain: this.bindRain,
       bindResume: this.bindResume,
       wide: s.wide, narrow: !s.wide,
+      // Video is 16:9. On narrow (portrait) screens it's shown with object-fit:contain
+      // so both hands + capsules stay fully in frame (letterboxed top/bottom) instead of
+      // being cropped off the sides by object-fit:cover. The rendered video band is
+      // 100vw wide × 56.25vw tall, centered in the viewport — this calc finds the palms'
+      // vertical position (57% down that band) in viewport coordinates.
+      videoFit: s.wide ? 'cover' : 'contain',
+      narrowPalmTop: 'calc((100vh - 56.25vw) / 2 + 32vw)',
       redHover: rh, blueHover: bh,
       redScale: rh ? 1.16 : 1, blueScale: bh ? 1.16 : 1,
       redRing: rh ? 1.1 : 1, blueRing: bh ? 1.1 : 1,
