@@ -342,7 +342,7 @@ class Component extends DCLogic {
     const resize = () => {
       W = canvas.width = window.innerWidth;
       H = canvas.height = window.innerHeight;
-      fs = Math.max(16, Math.round(W / 70));
+      fs = Math.max(11, Math.round(W / 105));
       cols = Math.floor(W / fs) + 1;
       rows = Math.floor(H / fs) + 1;
       streams = Array.from({ length: cols }, () => ({
