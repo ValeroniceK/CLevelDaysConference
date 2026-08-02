@@ -28,7 +28,7 @@
   @keyframes mxFall{0%{transform:translateY(-10%)}100%{transform:translateY(110%)}}
 </style>
 </helmet>
-<div style="position:relative;width:100%;height:100vh;overflow:hidden;background:#000300;font-family:'Share Tech Mono',ui-monospace,monospace;color:#bfffd6;">
+<div style="position:relative;width:100%;height:100vh;height:100dvh;overflow:hidden;background:#000300;font-family:'Share Tech Mono',ui-monospace,monospace;color:#bfffd6;">
 
   <sc-if value="{{ showLanding }}" hint-placeholder-val="{{ true }}">
     <div style="position:absolute;inset:0;">
@@ -43,7 +43,7 @@
       <div style="position:absolute;inset:0;pointer-events:none;opacity:.14;background:repeating-linear-gradient(0deg,rgba(0,255,90,.25) 0,rgba(0,255,90,.25) 1px,transparent 2px,transparent 4px);"></div>
 
       <!-- Top prompt -->
-      <div style="position:absolute;top:6vh;left:50%;transform:translateX(-50%);text-align:center;pointer-events:none;z-index:5;max-width:min(92vw,860px);padding:26px clamp(20px,4vw,44px);background:rgba(0,3,0,.62);border:1px solid rgba(0,255,90,.22);border-radius:16px;backdrop-filter:blur(6px);box-shadow:0 12px 44px rgba(0,0,0,.55);">
+      <div style="position:absolute;top:6vh;left:50%;transform:translateX(-50%);text-align:center;pointer-events:none;z-index:5;max-width:min(92vw,860px);padding:26px clamp(20px,4vw,44px);background:rgba(0,3,0,.62);border:1px solid rgba(0,255,90,.22);border-radius:16px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);box-shadow:0 12px 44px rgba(0,0,0,.55);">
         <div style="font-size:12px;letter-spacing:.5em;color:#5cf5a0;margin-bottom:14px;">// SYSTEM :: WAKE_PROTOCOL — READY</div>
         <div style="font-size:clamp(30px,6.2vw,74px);line-height:.98;letter-spacing:.12em;color:#f4fff8;text-shadow:0 2px 4px rgba(0,0,0,.85),0 0 26px rgba(0,255,90,.6);">VALERY&nbsp;KASMACH</div>
         <div style="margin-top:14px;font-size:clamp(12px,1.7vw,17px);letter-spacing:.32em;color:#7dffb0;text-shadow:0 1px 3px rgba(0,0,0,.9);">QA&nbsp;AUTOMATION&nbsp;ENGINEER&nbsp;·&nbsp;PYTHON&nbsp;·&nbsp;MOBILE&nbsp;·&nbsp;PERFORMANCE&nbsp;·&nbsp;AI</div>
@@ -81,32 +81,26 @@
         </div>
       </sc-if>
 
-      <!-- NARROW: same pill-on-hands choice as desktop, tap targets over the palms -->
+      <!-- NARROW: no hotspots over the hands (they never line up across devices).
+           The video with the pills stays as the backdrop; the choice lives in two
+           solid, always-reachable cards pinned to the bottom of the viewport. -->
       <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
-        <div>
-          <!-- RED (left palm) -->
-          <div onClick="{{ onRed }}"
-               style="position:absolute;left:30%;top:{{ narrowPalmTop }};transform:translate(-50%,-50%);width:34vw;max-width:180px;height:34vw;max-height:180px;border-radius:50%;cursor:pointer;z-index:8;">
-            <div style="position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(255,70,80,.75);box-shadow:0 0 34px rgba(255,40,60,.75),inset 0 0 26px rgba(255,40,60,.5);animation:mxPulse 2.6s ease-in-out infinite;"></div>
-            <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58%;height:58%;border-radius:50%;background:radial-gradient(circle,rgba(255,40,60,.55) 0%,rgba(255,40,60,0) 70%);"></div>
+        <div style="position:absolute;left:0;right:0;bottom:0;z-index:9;padding:0 12px calc(14px + env(safe-area-inset-bottom));">
+          <div style="text-align:center;margin-bottom:12px;font-size:11px;letter-spacing:.3em;color:#7dffb0;text-shadow:0 1px 3px rgba(0,0,0,.9);">▼ CHOOSE YOUR PILL ▼</div>
+          <div style="display:flex;gap:10px;align-items:stretch;">
+            <!-- RED -->
+            <div onClick="{{ onRed }}" style="flex:1;min-width:0;cursor:pointer;text-align:center;padding:15px 10px;background:rgba(14,0,3,.82);border:1px solid rgba(255,60,70,.6);border-radius:14px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);box-shadow:0 8px 26px rgba(0,0,0,.6),0 0 22px rgba(255,40,60,.22);">
+              <div style="font-size:clamp(14px,4vw,17px);letter-spacing:.12em;color:#ff8a94;text-shadow:0 0 14px rgba(255,40,60,.7);">◉ RED PILL</div>
+              <div style="margin-top:6px;font-size:12px;line-height:1.35;color:#ffd0d5;">Wake up in the digital reality</div>
+              <div style="margin-top:8px;font-size:10px;letter-spacing:.16em;color:#ffb3ba;">&gt; ENTER_DIGITAL_RESUME</div>
+            </div>
+            <!-- BLUE -->
+            <div onClick="{{ onBlue }}" style="flex:1;min-width:0;cursor:pointer;text-align:center;padding:15px 10px;background:rgba(0,4,16,.82);border:1px solid rgba(60,140,255,.6);border-radius:14px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);box-shadow:0 8px 26px rgba(0,0,0,.6),0 0 22px rgba(50,120,255,.22);">
+              <div style="font-size:clamp(14px,4vw,17px);letter-spacing:.12em;color:#9ec6ff;text-shadow:0 0 14px rgba(50,120,255,.7);">◉ BLUE PILL</div>
+              <div style="margin-top:6px;font-size:12px;line-height:1.35;color:#cfe2ff;">Take the classic path</div>
+              <div style="margin-top:8px;font-size:10px;letter-spacing:.16em;color:#c2d8ff;">&gt; OPEN_CLASSIC_PDF</div>
+            </div>
           </div>
-          <div onClick="{{ onRed }}" style="position:absolute;left:30%;top:calc({{ narrowPalmTop }} + 19vw);transform:translate(-50%,0);text-align:center;z-index:9;width:44vw;pointer-events:auto;cursor:pointer;padding:10px 12px;background:rgba(14,0,3,.8);border:1px solid rgba(255,60,70,.55);border-radius:12px;backdrop-filter:blur(4px);box-shadow:0 8px 26px rgba(0,0,0,.6);">
-            <div style="font-size:clamp(13px,3.6vw,17px);color:#ff8a94;text-shadow:0 1px 3px rgba(0,0,0,.9);letter-spacing:.04em;line-height:1.25;">◉ RED<br />Wake up in the digital reality</div>
-            <div style="margin-top:5px;font-size:10px;letter-spacing:.2em;color:#ffb3ba;">&gt; ENTER_DIGITAL_RESUME</div>
-          </div>
-
-          <!-- BLUE (right palm) -->
-          <div onClick="{{ onBlue }}"
-               style="position:absolute;left:70%;top:{{ narrowPalmTop }};transform:translate(-50%,-50%);width:34vw;max-width:180px;height:34vw;max-height:180px;border-radius:50%;cursor:pointer;z-index:8;">
-            <div style="position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(70,150,255,.75);box-shadow:0 0 34px rgba(50,120,255,.75),inset 0 0 26px rgba(50,120,255,.5);animation:mxPulse 2.6s ease-in-out infinite .6s;"></div>
-            <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58%;height:58%;border-radius:50%;background:radial-gradient(circle,rgba(50,120,255,.55) 0%,rgba(50,120,255,0) 70%);"></div>
-          </div>
-          <div onClick="{{ onBlue }}" style="position:absolute;left:70%;top:calc({{ narrowPalmTop }} + 19vw);transform:translate(-50%,0);text-align:center;z-index:9;width:44vw;pointer-events:auto;cursor:pointer;padding:10px 12px;background:rgba(0,4,16,.8);border:1px solid rgba(60,140,255,.55);border-radius:12px;backdrop-filter:blur(4px);box-shadow:0 8px 26px rgba(0,0,0,.6);">
-            <div style="font-size:clamp(13px,3.6vw,17px);color:#9ec6ff;text-shadow:0 1px 3px rgba(0,0,0,.9);letter-spacing:.04em;line-height:1.25;">◉ BLUE<br />Take the classic path</div>
-            <div style="margin-top:5px;font-size:10px;letter-spacing:.2em;color:#c2d8ff;">&gt; OPEN_CLASSIC_PDF</div>
-          </div>
-
-          <div style="position:absolute;left:0;right:0;bottom:3.5vh;text-align:center;z-index:9;font-size:11px;letter-spacing:.3em;color:#7dffb0;text-shadow:0 1px 3px rgba(0,0,0,.9);pointer-events:none;">▲ TAP THE PILL ▲</div>
         </div>
       </sc-if>
     </div>
