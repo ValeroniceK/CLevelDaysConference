@@ -13,13 +13,53 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
 <style>
+  :root{
+    /* ---- phosphor depth palette ---- */
+    --mx-bg:#000300;
+    --mx-deep:#0c2f1c;      /* darkest readable phosphor */
+    --mx-dim:#2a7d4d;       /* muted labels */
+    --mx-core:#00ff5a;      /* signal green */
+    --mx-mid:#3df08a;       /* links / mid */
+    --mx-soft:#7dffb0;      /* soft green text */
+    --mx-body:#d8ffe6;      /* body copy (raised contrast) */
+    --mx-bright:#eafff2;    /* near-white headline */
+    --mx-gold:#ffcf4d;      /* the single "costly signal" accent */
+    --mx-gold-glow:rgba(255,190,60,.65);
+    --disp:'Oswald',ui-sans-serif,system-ui,'Segoe UI',Roboto,sans-serif;
+  }
   html,body{margin:0;padding:0;background:#000300;}
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   a{color:#3df08a;text-decoration:none;}
   a:hover{color:#aaffcc;}
   ::selection{background:#00ff5a;color:#000;}
+  /* ---- display type system: tense condensed grotesk for name + section heads ---- */
+  .mx-display{font-family:var(--disp);font-weight:700;letter-spacing:.01em;}
+  .mx-h{font-family:var(--disp);font-weight:600;}
+  /* ---- breathing bloom: continuous life on the key glowing marks ---- */
+  @keyframes mxBreath{0%,100%{text-shadow:0 0 26px rgba(0,255,90,.45)}50%{text-shadow:0 0 40px rgba(0,255,90,.85),0 0 10px rgba(0,255,90,.5)}}
+  @keyframes mxBreathGold{0%,100%{text-shadow:0 0 26px var(--mx-gold-glow)}50%{text-shadow:0 0 44px var(--mx-gold-glow),0 0 12px rgba(255,207,77,.6)}}
+  .mx-breath{animation:mxBreath 4.6s ease-in-out infinite;}
+  .mx-breath-gold{animation:mxBreathGold 4.2s ease-in-out infinite;}
+  /* ---- CRT layer: film grain drift + rare signal flicker ---- */
+  @keyframes mxGrain{0%{transform:translate(0,0)}10%{transform:translate(-4%,-3%)}20%{transform:translate(-8%,2%)}30%{transform:translate(3%,-6%)}40%{transform:translate(-3%,7%)}50%{transform:translate(-8%,3%)}60%{transform:translate(5%,4%)}70%{transform:translate(-2%,-8%)}80%{transform:translate(6%,6%)}90%{transform:translate(-4%,2%)}100%{transform:translate(0,0)}}
+  @keyframes mxSignal{0%,96.5%,100%{opacity:0}97%{opacity:.5}97.6%{opacity:0}98.2%{opacity:.32}98.8%{opacity:0}}
+  @keyframes mxBootType{from{opacity:0}to{opacity:1}}
+  /* ---- custom cursor node ---- */
+  .mx-cursor{position:fixed;left:0;top:0;z-index:9998;pointer-events:none;mix-blend-mode:screen;will-change:transform;contain:layout style;}
+  .mx-cursor-dot{width:7px;height:7px;margin:-3.5px 0 0 -3.5px;border-radius:50%;background:#daffe6;box-shadow:0 0 10px rgba(0,255,120,.95);}
+  .mx-cursor-ring{width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;border:1px solid rgba(0,255,120,.55);box-shadow:0 0 18px rgba(0,255,120,.35),inset 0 0 12px rgba(0,255,120,.25);transition:width .22s ease,height .22s ease,margin .22s ease,border-color .22s ease;}
+  .mx-cursor-ring.mx-hot{width:56px;height:56px;margin:-28px 0 0 -28px;border-color:rgba(0,255,120,.9);}
+  @media (hover:none),(pointer:coarse){.mx-cursor{display:none!important;}}
+  /* ---- accessibility: honour reduced motion ---- */
+  @media (prefers-reduced-motion:reduce){
+    .mx-breath,.mx-breath-gold{animation:none!important;}
+    #mx-grain{animation:none!important;}
+    #mx-signal{display:none!important;}
+    #mx-boot{display:none!important;}
+    *{scroll-behavior:auto!important;}
+  }
   @keyframes mxPulse{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.55}50%{transform:translate(-50%,-50%) scale(1.18);opacity:.15}}
   @keyframes mxFlick{0%,100%{opacity:.92}47%{opacity:.78}48%{opacity:.4}49%{opacity:.85}}
   @keyframes mxScan{0%{transform:translateY(-100%)}100%{transform:translateY(100%)}}
@@ -47,7 +87,7 @@
       <!-- Top prompt -->
       <div style="position:absolute;top:6vh;left:50%;transform:translateX(-50%);text-align:center;pointer-events:none;z-index:5;max-width:min(92vw,860px);padding:26px clamp(20px,4vw,44px);background:rgba(0,3,0,.62);border:1px solid rgba(0,255,90,.22);border-radius:16px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);box-shadow:0 12px 44px rgba(0,0,0,.55);">
         <div style="font-size:12px;letter-spacing:.5em;color:#5cf5a0;margin-bottom:14px;">{{ systemLine }}</div>
-        <div style="font-size:clamp(30px,6.2vw,74px);line-height:.98;letter-spacing:.12em;color:#f4fff8;text-shadow:0 2px 4px rgba(0,0,0,.85),0 0 26px rgba(0,255,90,.6);">{{ firstName }}&nbsp;{{ lastName }}</div>
+        <div class="mx-display mx-breath" style="font-size:clamp(38px,7.4vw,88px);line-height:.94;letter-spacing:.03em;color:#f4fff8;text-shadow:0 2px 4px rgba(0,0,0,.85),0 0 26px rgba(0,255,90,.6);">{{ firstName }}&nbsp;{{ lastName }}</div>
         <div style="margin-top:14px;font-size:clamp(12px,1.7vw,17px);letter-spacing:.32em;color:#7dffb0;text-shadow:0 1px 3px rgba(0,0,0,.9);">{{ tagline }}</div>
         <div style="margin-top:26px;font-size:clamp(13px,1.8vw,18px);letter-spacing:.18em;color:#f4fff8;text-shadow:0 1px 3px rgba(0,0,0,.9);">{{ choicePrompt }}<span style="display:inline-block;width:.6em;height:1.1em;margin-left:.15em;vertical-align:-.15em;background:#00ff5a;animation:mxCaret 1s step-end infinite;"></span></div>
       </div>
@@ -137,8 +177,8 @@
         <!-- HERO -->
         <header style="margin-bottom:96px;">
           <div data-dec style="font-size:12px;letter-spacing:.4em;color:#3df08a;margin-bottom:18px;">&gt; DECRYPTING_IDENTITY ...</div>
-          <h1 style="margin:0;font-size:clamp(40px,9vw,104px);line-height:.92;letter-spacing:.04em;color:#eafff2;text-shadow:0 0 34px rgba(0,255,90,.45);">
-            <span data-dec>{{ firstName }}</span><br /><span data-dec style="color:#00ff5a;text-shadow:0 0 34px rgba(0,255,90,.8);">{{ lastName }}</span>
+          <h1 class="mx-display" style="margin:0;font-size:clamp(52px,11vw,128px);line-height:.86;letter-spacing:.01em;color:#eafff2;text-shadow:0 0 34px rgba(0,255,90,.45);">
+            <span data-dec>{{ firstName }}</span><br /><span data-dec class="mx-breath" style="color:#00ff5a;text-shadow:0 0 34px rgba(0,255,90,.8);">{{ lastName }}</span>
           </h1>
           <div data-dec style="margin-top:22px;font-size:clamp(15px,2.4vw,22px);letter-spacing:.14em;color:#7dffb0;">{{ roleLine }}</div>
           <div data-dec style="margin-top:8px;font-size:clamp(12px,1.8vw,16px);letter-spacing:.22em;color:#39d97a;">{{ roleSub }}</div>
@@ -153,10 +193,10 @@
         <!-- ABOUT -->
         <section data-reveal style="margin-bottom:96px;opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;">
           <div style="display:flex;align-items:center;gap:16px;margin-bottom:26px;">
-            <span data-dec style="font-size:clamp(22px,4vw,40px);color:#00ff5a;letter-spacing:.06em;text-shadow:0 0 22px rgba(0,255,90,.6);">01 // ABOUT</span>
+            <span data-dec class="mx-h" style="font-size:clamp(24px,4.4vw,46px);color:#00ff5a;letter-spacing:.05em;text-shadow:0 0 22px rgba(0,255,90,.6);">01 // ABOUT</span>
             <span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(0,255,90,.6),rgba(0,255,90,0));"></span>
           </div>
-          <p style="max-width:760px;font-size:clamp(15px,2.1vw,20px);line-height:1.75;color:#cfffe0;text-align:justify;text-justify:inter-word;hyphens:auto;-webkit-hyphens:auto;">{{ about }}</p>
+          <p style="max-width:720px;font-size:clamp(15px,2.1vw,20px);line-height:1.78;color:var(--mx-body);text-wrap:pretty;">{{ about }}</p>
           <div style="margin-top:22px;display:flex;flex-wrap:wrap;gap:10px;font-size:12px;letter-spacing:.14em;color:#7dffb0;">
             <sc-for list="{{ badges }}" as="badge" hint-placeholder-count="3">
               <span data-stagger style="padding:6px 12px;border:1px solid rgba(0,255,90,.3);border-radius:20px;">{{ badge }}</span>
@@ -167,7 +207,7 @@
         <!-- HIGHLIGHTS -->
         <section data-reveal style="margin-bottom:96px;opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;">
           <div style="display:flex;align-items:center;gap:16px;margin-bottom:30px;">
-            <span data-dec style="font-size:clamp(22px,4vw,40px);color:#00ff5a;letter-spacing:.06em;text-shadow:0 0 22px rgba(0,255,90,.6);">02 // CAREER_HIGHLIGHTS</span>
+            <span data-dec class="mx-h" style="font-size:clamp(24px,4.4vw,46px);color:#00ff5a;letter-spacing:.05em;text-shadow:0 0 22px rgba(0,255,90,.6);">02 // CAREER_HIGHLIGHTS</span>
             <span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(0,255,90,.6),rgba(0,255,90,0));"></span>
           </div>
           <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;">
@@ -184,7 +224,7 @@
         <!-- SKILLS -->
         <section data-reveal style="margin-bottom:96px;opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;">
           <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px;">
-            <span data-dec style="font-size:clamp(22px,4vw,40px);color:#00ff5a;letter-spacing:.06em;text-shadow:0 0 22px rgba(0,255,90,.6);">03 // SKILL_MATRIX</span>
+            <span data-dec class="mx-h" style="font-size:clamp(24px,4.4vw,46px);color:#00ff5a;letter-spacing:.05em;text-shadow:0 0 22px rgba(0,255,90,.6);">03 // SKILL_MATRIX</span>
             <span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(0,255,90,.6),rgba(0,255,90,0));"></span>
           </div>
           <div style="font-size:12px;letter-spacing:.14em;color:#39d97a;margin-bottom:26px;">// hover a node to bring it online</div>
@@ -212,7 +252,7 @@
         <!-- EXPERIENCE -->
         <section data-reveal style="margin-bottom:96px;opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;">
           <div style="display:flex;align-items:center;gap:16px;margin-bottom:34px;">
-            <span data-dec style="font-size:clamp(22px,4vw,40px);color:#00ff5a;letter-spacing:.06em;text-shadow:0 0 22px rgba(0,255,90,.6);">04 // EXPERIENCE_LOG</span>
+            <span data-dec class="mx-h" style="font-size:clamp(24px,4.4vw,46px);color:#00ff5a;letter-spacing:.05em;text-shadow:0 0 22px rgba(0,255,90,.6);">04 // EXPERIENCE_LOG</span>
             <span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(0,255,90,.6),rgba(0,255,90,0));"></span>
           </div>
           <div data-timeline style="position:relative;padding-left:34px;">
@@ -243,7 +283,7 @@
         <!-- EDUCATION -->
         <section data-reveal style="margin-bottom:96px;opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;">
           <div style="display:flex;align-items:center;gap:16px;margin-bottom:30px;">
-            <span data-dec style="font-size:clamp(22px,4vw,40px);color:#00ff5a;letter-spacing:.06em;text-shadow:0 0 22px rgba(0,255,90,.6);">05 // TRAINING_&_LANG</span>
+            <span data-dec class="mx-h" style="font-size:clamp(24px,4.4vw,46px);color:#00ff5a;letter-spacing:.05em;text-shadow:0 0 22px rgba(0,255,90,.6);">05 // TRAINING_&_LANG</span>
             <span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(0,255,90,.6),rgba(0,255,90,0));"></span>
           </div>
           <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;">
@@ -293,6 +333,13 @@ class Component extends DCLogic {
     const kick = () => { if (this._video) { this._video.muted = true; this._video.play().catch(() => {}); } };
     window.addEventListener('pointerdown', kick);
     window.addEventListener('keydown', kick);
+    // ---- ambient chrome that lives on <body>, outside the framework's managed tree
+    // (survives re-renders on hover/screen changes) ----
+    this._reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    this._fine = window.matchMedia && window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+    this.initCRT();
+    this.initCursor();
+    this.initBoot();
   }
 
   // ---- ref callbacks: stable identity, fire exactly on element mount/unmount ----
@@ -319,8 +366,110 @@ class Component extends DCLogic {
     window.removeEventListener('resize', this._onResize);
     if (this._rainRaf) cancelAnimationFrame(this._rainRaf);
     if (this._landRaf) cancelAnimationFrame(this._landRaf);
+    if (this._cursorRaf) cancelAnimationFrame(this._cursorRaf);
+    if (this._scrollRaf) cancelAnimationFrame(this._scrollRaf);
     if (this._io) this._io.disconnect();
     if (this._io2) this._io2.disconnect();
+    ['_crtEl', '_cursorEl', '_bootEl'].forEach((k) => { if (this[k] && this[k].remove) this[k].remove(); });
+    if (this._onPointerMove) window.removeEventListener('pointermove', this._onPointerMove);
+  }
+
+  // ===== CRT LAYER: film grain drift + rare full-screen signal flicker + vignette =====
+  initCRT() {
+    if (this._crtEl) return;
+    const wrap = document.createElement('div');
+    wrap.id = 'mx-crt';
+    wrap.style.cssText = 'position:fixed;inset:0;z-index:9990;pointer-events:none;';
+    // vignette + faint chromatic fringe hugging the screen edges
+    const vig = document.createElement('div');
+    vig.style.cssText = 'position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(0,0,0,0) 58%,rgba(0,3,0,.55) 100%);mix-blend-mode:multiply;';
+    const fringe = document.createElement('div');
+    fringe.style.cssText = 'position:absolute;inset:0;opacity:.5;mix-blend-mode:screen;background:linear-gradient(90deg,rgba(255,0,60,.06) 0,rgba(0,0,0,0) 4%,rgba(0,0,0,0) 96%,rgba(0,180,255,.06) 100%);';
+    // film grain via SVG turbulence, animated by drifting the tile
+    const grain = document.createElement('div');
+    grain.id = 'mx-grain';
+    const noise = "data:image/svg+xml;utf8," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>');
+    grain.style.cssText = 'position:absolute;inset:-20%;background-image:url(\'' + noise + '\');background-size:180px 180px;opacity:.05;mix-blend-mode:overlay;' + (this._reduced ? '' : 'animation:mxGrain 1.1s steps(6) infinite;');
+    // rare over-bright signal flash across the whole panel
+    const sig = document.createElement('div');
+    sig.id = 'mx-signal';
+    sig.style.cssText = 'position:absolute;inset:0;background:rgba(180,255,205,.06);mix-blend-mode:screen;opacity:0;' + (this._reduced ? '' : 'animation:mxSignal 9s ease-in-out infinite;');
+    wrap.appendChild(vig); wrap.appendChild(fringe); wrap.appendChild(grain); wrap.appendChild(sig);
+    document.body.appendChild(wrap);
+    this._crtEl = wrap;
+  }
+
+  // ===== CUSTOM CURSOR: soft lagging glow node; magnetic snap handled per-element =====
+  initCursor() {
+    if (!this._fine || this._cursorEl) return;
+    const c = document.createElement('div');
+    c.className = 'mx-cursor';
+    const ring = document.createElement('div');
+    ring.className = 'mx-cursor mx-cursor-ring';
+    const dot = document.createElement('div');
+    dot.className = 'mx-cursor mx-cursor-dot';
+    document.body.appendChild(ring); document.body.appendChild(dot);
+    this._cursorEl = ring; this._cursorDot = dot;
+    const pos = { x: innerWidth / 2, y: innerHeight / 2 };
+    const ring2 = { x: pos.x, y: pos.y };
+    this._onPointerMove = (e) => { pos.x = e.clientX; pos.y = e.clientY; };
+    window.addEventListener('pointermove', this._onPointerMove, { passive: true });
+    const loop = () => {
+      ring2.x += (pos.x - ring2.x) * 0.18;
+      ring2.y += (pos.y - ring2.y) * 0.18;
+      dot.style.transform = `translate(${pos.x}px,${pos.y}px)`;
+      ring.style.transform = `translate(${ring2.x}px,${ring2.y}px)`;
+      this._cursorRaf = requestAnimationFrame(loop);
+    };
+    this._cursorRaf = requestAnimationFrame(loop);
+  }
+  cursorHot(on) { if (this._cursorEl) this._cursorEl.classList.toggle('mx-hot', !!on); }
+
+  // ===== BOOT SEQUENCE: terminal wake-up log that types then dissolves into the landing =====
+  initBoot() {
+    // sessionStorage can throw in Safari Private mode — never let that block boot
+    const ss = { get: (k) => { try { return sessionStorage.getItem(k); } catch (e) { return null; } },
+                 set: (k, v) => { try { sessionStorage.setItem(k, v); } catch (e) {} } };
+    if (this._reduced || this._bootEl || ss.get('mxBooted')) return;
+    const lines = [
+      '> INITIALISING WAKE_PROTOCOL ...',
+      '> MOUNTING /dev/reality ............ OK',
+      '> DECRYPTING IDENTITY :: KASMACH.V . OK',
+      '> RENDERING CONSTRUCT .............. OK',
+      '> THERE IS NO SPOON',
+    ];
+    const el = document.createElement('div');
+    el.id = 'mx-boot';
+    el.style.cssText = 'position:fixed;inset:0;z-index:9995;background:#000300;display:flex;align-items:center;justify-content:center;font-family:"Share Tech Mono",monospace;transition:opacity .6s ease;';
+    const box = document.createElement('div');
+    box.style.cssText = 'width:min(92vw,560px);color:#7dffb0;font-size:clamp(12px,2.4vw,15px);line-height:2;text-shadow:0 0 10px rgba(0,255,90,.5);';
+    el.appendChild(box); document.body.appendChild(el);
+    this._bootEl = el;
+    const caret = '<span style="display:inline-block;width:.55em;height:1.05em;margin-left:.1em;vertical-align:-.15em;background:#00ff5a;"></span>';
+    let li = 0, done = false;
+    const finish = () => {
+      if (done) return; done = true;
+      ss.set('mxBooted', '1');
+      el.style.opacity = '0';
+      setTimeout(() => { el.remove(); this._bootEl = null; }, 620);
+    };
+    el.addEventListener('pointerdown', finish); // tap/click to skip
+    const typeLine = () => {
+      if (li >= lines.length) { setTimeout(finish, 480); return; }
+      const full = lines[li];
+      let ci = 0;
+      const prev = box.innerHTML.replace(caret, '');
+      const tick = () => {
+        if (done) return;
+        box.innerHTML = prev + full.slice(0, ci) + caret;
+        ci++;
+        if (ci <= full.length) setTimeout(tick, 16 + Math.random() * 26);
+        else { box.innerHTML = prev + full + '<br>'; li++; setTimeout(typeLine, 130); }
+      };
+      tick();
+    };
+    typeLine();
+    setTimeout(finish, 5200); // hard safety cap
   }
 
   onRed = () => {
@@ -505,6 +654,17 @@ class Component extends DCLogic {
       card.appendChild(svg);
       card._gauge = { arc, C, pct };
 
+      // ONE card carries the gold "costly signal" accent so the eye anchors there
+      if (i === 0 && statEl) {
+        arc.setAttribute('stroke', '#ffcf4d');
+        svg.style.filter = 'drop-shadow(0 0 6px rgba(255,190,60,.85))';
+        statEl.style.color = '#ffcf4d';
+        statEl.style.textShadow = '0 0 22px rgba(255,190,60,.7)';
+        statEl.classList.add('mx-breath-gold');
+        card.style.borderColor = 'rgba(255,190,60,.42)';
+        card._gold = true;
+      }
+
       if (num !== null) card._count = { el: statEl, final: finalTxt, num, dur: 1100 };
       if (statEl) statEl.textContent = finalTxt; // keep intact until animated
     });
@@ -522,7 +682,7 @@ class Component extends DCLogic {
         card.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(6px)`;
         glare.style.background = `radial-gradient(240px circle at ${px * 100}% ${py * 100}%,rgba(180,255,210,.26),rgba(0,0,0,0) 60%)`;
       };
-      const leave = () => { glare.style.opacity = '0'; card.style.transform = 'perspective(800px)'; card.style.borderColor = ''; card.style.boxShadow = ''; };
+      const leave = () => { glare.style.opacity = '0'; card.style.transform = 'perspective(800px)'; card.style.borderColor = card._gold ? 'rgba(255,190,60,.42)' : ''; card.style.boxShadow = ''; };
       card.addEventListener('pointerenter', enter);
       card.addEventListener('pointermove', move);
       card.addEventListener('pointerleave', leave);
@@ -575,6 +735,94 @@ class Component extends DCLogic {
     }, { root, threshold: 0.25 });
     root.querySelectorAll('[data-hcard],[data-chip],[data-timeline]').forEach((el) => io2.observe(el));
     this._io2 = io2;
+
+    // cinematic scroll + signature micro-interactions
+    this.initScrollFX(root);
+    this.initResumeMicro(root);
+  }
+
+  // ===== CINEMATIC SCROLL: progress rail + oversized ghost numerals that counter-scroll =====
+  initScrollFX(root) {
+    // thin phosphor progress rail down the left edge
+    const rail = document.createElement('div');
+    rail.style.cssText = 'position:fixed;left:0;top:0;width:2px;height:100%;z-index:19;pointer-events:none;background:rgba(0,255,90,.08);';
+    const fill = document.createElement('div');
+    fill.style.cssText = 'position:absolute;left:0;top:0;width:100%;height:0;background:linear-gradient(180deg,#8dffc0,#00ff5a);box-shadow:0 0 12px rgba(0,255,90,.8);';
+    rail.appendChild(fill); root.appendChild(rail);
+
+    // giant faint numeral behind each numbered section — depth + rhythm on scroll
+    const ghosts = [];
+    root.querySelectorAll('section[data-reveal]').forEach((sec) => {
+      const dec = sec.querySelector('[data-dec]');
+      const m = dec && dec.textContent.match(/\d{2}/);
+      if (!m) return;
+      if (getComputedStyle(sec).position === 'static') sec.style.position = 'relative';
+      const g = document.createElement('div');
+      g.textContent = m[0];
+      g.setAttribute('aria-hidden', 'true');
+      g.style.cssText = 'position:absolute;right:-1vw;top:-4vw;z-index:0;font-family:var(--disp);font-weight:700;font-size:clamp(120px,26vw,340px);line-height:.8;color:rgba(0,255,90,.045);pointer-events:none;user-select:none;will-change:transform;';
+      sec.insertBefore(g, sec.firstChild);
+      ghosts.push(g);
+    });
+
+    const reduced = this._reduced;
+    const onScroll = () => {
+      this._scrollRaf = null;
+      const max = root.scrollHeight - root.clientHeight;
+      fill.style.height = (max > 0 ? (root.scrollTop / max) * 100 : 0) + '%';
+      if (reduced) return;
+      const vh = root.clientHeight;
+      ghosts.forEach((g) => {
+        const r = g.parentElement.getBoundingClientRect();
+        const rel = (r.top + r.height / 2 - vh / 2) / vh; // -1..1 through viewport
+        g.style.transform = 'translateY(' + (rel * -60) + 'px)';
+      });
+    };
+    const schedule = () => { if (!this._scrollRaf) this._scrollRaf = requestAnimationFrame(onScroll); };
+    root.addEventListener('scroll', schedule, { passive: true });
+    onScroll();
+  }
+
+  // ===== SIGNATURE MICRO-INTERACTIONS: scramble-on-hover heads + magnetic buttons =====
+  initResumeMicro(root) {
+    if (!this._fine) return; // hover-only; touch devices skip
+    const chars = 'アイウ01<>=*ﾊﾋﾌ#%&';
+    const rnd = () => chars[(Math.random() * chars.length) | 0];
+    const scramble = (el) => {
+      if (el._scrambling) return;
+      const target = el.getAttribute('data-final') || el.textContent;
+      el.setAttribute('data-final', target);
+      el._scrambling = true;
+      const len = target.length;
+      let frame = 0; const total = 10 + len;
+      const tick = () => {
+        let out = '';
+        for (let i = 0; i < len; i++) out += (target[i] === ' ') ? ' ' : (i < frame - 4 ? target[i] : rnd());
+        el.textContent = out; frame++;
+        if (frame <= total) requestAnimationFrame(tick);
+        else { el.textContent = target; el._scrambling = false; }
+      };
+      tick();
+    };
+    root.querySelectorAll('.mx-h').forEach((h) => {
+      h.style.cursor = 'default';
+      h.addEventListener('pointerenter', () => scramble(h));
+    });
+
+    // magnetic pull + cursor swell on the page's interactive controls
+    const magnet = (el, strength) => {
+      const s = strength || 0.32;
+      el.style.transition = 'transform .18s cubic-bezier(.2,.8,.2,1)';
+      el.addEventListener('pointerenter', () => this.cursorHot(true));
+      el.addEventListener('pointermove', (e) => {
+        const b = el.getBoundingClientRect();
+        const dx = e.clientX - (b.left + b.width / 2);
+        const dy = e.clientY - (b.top + b.height / 2);
+        el.style.transform = `translate(${dx * s}px,${dy * s}px)`;
+      });
+      el.addEventListener('pointerleave', () => { el.style.transform = ''; this.cursorHot(false); });
+    };
+    root.querySelectorAll('header a, section a, section button, [data-back], button').forEach((el) => magnet(el, 0.3));
   }
 
   // cyberpunk boot-up entrance for a section: clip-wipe + scan sweep + RGB glitch + stagger
