@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+<style>
+  html,body{margin:0;padding:0;background:#000300;}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  a{color:#3df08a;text-decoration:none;}
+  a:hover{color:#aaffcc;}
+  ::selection{background:#00ff5a;color:#000;}
+  @keyframes mxPulse{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.55}50%{transform:translate(-50%,-50%) scale(1.18);opacity:.15}}
+  @keyframes mxFlick{0%,100%{opacity:.92}47%{opacity:.78}48%{opacity:.4}49%{opacity:.85}}
+  @keyframes mxScan{0%{transform:translateY(-100%)}100%{transform:translateY(100%)}}
+  @keyframes mxCaret{0%,49%{opacity:1}50%,100%{opacity:0}}
+  @keyframes mxTunnel{0%{transform:scale(1);opacity:0}12%{opacity:1}100%{transform:scale(11);opacity:1}}
+  @keyframes mxFlash{0%{opacity:0}70%{opacity:0}86%{opacity:.9}100%{opacity:0}}
+  @keyframes mxShake{0%,100%{transform:translate(0,0)}20%{transform:translate(-3px,2px)}40%{transform:translate(3px,-2px)}60%{transform:translate(-2px,-3px)}80%{transform:translate(2px,3px)}}
+  @keyframes mxFall{0%{transform:translateY(-10%)}100%{transform:translateY(110%)}}
+</style>
+</helmet>
+<div style="position:relative;width:100%;height:100vh;overflow:hidden;background:#000300;font-family:'Share Tech Mono',ui-monospace,monospace;color:#bfffd6;">
+
+  <sc-if value="{{ showLanding }}" hint-placeholder-val="{{ true }}">
+    <div style="position:absolute;inset:0;">
+      <!-- HERO: the choice video, looping forever -->
+      <video ref="{{ bindVideo }}" id="mx-hero-video" autoplay muted loop playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+        <source src="uploads/hands.mp4" type="video/mp4" />
+      </video>
+      <canvas ref="{{ bindLandRain }}" id="mx-land-rain" style="position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;mix-blend-mode:screen;opacity:.42;"></canvas>
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 55%,rgba(0,0,0,0) 30%,rgba(0,3,0,.55) 100%);pointer-events:none;"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,3,0,.72) 0%,rgba(0,3,0,0) 26%,rgba(0,3,0,0) 68%,rgba(0,3,0,.85) 100%);pointer-events:none;"></div>
+      <!-- faint scanline -->
+      <div style="position:absolute;inset:0;pointer-events:none;opacity:.14;background:repeating-linear-gradient(0deg,rgba(0,255,90,.25) 0,rgba(0,255,90,.25) 1px,transparent 2px,transparent 4px);"></div>
+
+      <!-- Top prompt -->
+      <div style="position:absolute;top:6vh;left:50%;transform:translateX(-50%);text-align:center;pointer-events:none;z-index:5;max-width:min(92vw,860px);padding:26px clamp(20px,4vw,44px);background:rgba(0,3,0,.62);border:1px solid rgba(0,255,90,.22);border-radius:16px;backdrop-filter:blur(6px);box-shadow:0 12px 44px rgba(0,0,0,.55);">
+        <div style="font-size:12px;letter-spacing:.5em;color:#5cf5a0;margin-bottom:14px;">// SYSTEM :: WAKE_PROTOCOL — READY</div>
+        <div style="font-size:clamp(30px,6.2vw,74px);line-height:.98;letter-spacing:.12em;color:#f4fff8;text-shadow:0 2px 4px rgba(0,0,0,.85),0 0 26px rgba(0,255,90,.6);">VALERY&nbsp;KASMACH</div>
+        <div style="margin-top:14px;font-size:clamp(12px,1.7vw,17px);letter-spacing:.32em;color:#7dffb0;text-shadow:0 1px 3px rgba(0,0,0,.9);">QA&nbsp;AUTOMATION&nbsp;ENGINEER&nbsp;·&nbsp;PYTHON&nbsp;·&nbsp;MOBILE&nbsp;·&nbsp;PERFORMANCE&nbsp;·&nbsp;AI</div>
+        <div style="margin-top:26px;font-size:clamp(13px,1.8vw,18px);letter-spacing:.18em;color:#f4fff8;text-shadow:0 1px 3px rgba(0,0,0,.9);">СДЕЛАЙ&nbsp;ВЫБОР<span style="display:inline-block;width:.6em;height:1.1em;margin-left:.15em;vertical-align:-.15em;background:#00ff5a;animation:mxCaret 1s step-end infinite;"></span></div>
+      </div>
+
+      <!-- WIDE: pill hotspots aligned over the hands -->
+      <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <!-- RED (left hand) -->
+          <div onMouseEnter="{{ onEnterRed }}" onMouseLeave="{{ onLeave }}" onClick="{{ onRed }}"
+               style="position:absolute;left:30%;top:57%;transform:translate(-50%,-50%) scale({{ redScale }});transition:transform .35s cubic-bezier(.2,.8,.2,1);width:clamp(120px,17vw,210px);height:clamp(120px,17vw,210px);border-radius:50%;cursor:pointer;z-index:8;">
+            <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale({{ redRing }});width:100%;height:100%;border-radius:50%;border:1px solid rgba(255,60,70,.6);box-shadow:0 0 40px rgba(255,40,60,{{ redGlow }}),inset 0 0 30px rgba(255,40,60,.4);animation:mxPulse 2.6s ease-in-out infinite;"></div>
+            <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:60%;height:60%;border-radius:50%;background:radial-gradient(circle,rgba(255,40,60,{{ redCore }}) 0%,rgba(255,40,60,0) 70%);"></div>
+          </div>
+          <sc-if value="{{ redHover }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;left:30%;top:34%;transform:translate(-50%,0);text-align:center;pointer-events:none;z-index:9;width:min(40vw,420px);animation:mxFlick 3s infinite;padding:14px 18px;background:rgba(14,0,3,.78);border:1px solid rgba(255,60,70,.5);border-radius:12px;backdrop-filter:blur(4px);box-shadow:0 8px 30px rgba(0,0,0,.6);">
+              <div style="font-size:clamp(15px,2vw,22px);color:#ff7d88;text-shadow:0 1px 3px rgba(0,0,0,.9),0 0 18px rgba(255,40,60,.7);letter-spacing:.06em;">Пробудиться в цифровой реальности</div>
+              <div style="margin-top:6px;font-size:12px;letter-spacing:.28em;color:#ffb3ba;">&gt; ENTER_DIGITAL_RESUME</div>
+            </div>
+          </sc-if>
+
+          <!-- BLUE (right hand) -->
+          <div onMouseEnter="{{ onEnterBlue }}" onMouseLeave="{{ onLeave }}" onClick="{{ onBlue }}"
+               style="position:absolute;left:70%;top:57%;transform:translate(-50%,-50%) scale({{ blueScale }});transition:transform .35s cubic-bezier(.2,.8,.2,1);width:clamp(120px,17vw,210px);height:clamp(120px,17vw,210px);border-radius:50%;cursor:pointer;z-index:8;">
+            <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale({{ blueRing }});width:100%;height:100%;border-radius:50%;border:1px solid rgba(60,140,255,.6);box-shadow:0 0 40px rgba(50,120,255,{{ blueGlow }}),inset 0 0 30px rgba(50,120,255,.4);animation:mxPulse 2.6s ease-in-out infinite .6s;"></div>
+            <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:60%;height:60%;border-radius:50%;background:radial-gradient(circle,rgba(50,120,255,{{ blueCore }}) 0%,rgba(50,120,255,0) 70%);"></div>
+          </div>
+          <sc-if value="{{ blueHover }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;left:70%;top:34%;transform:translate(-50%,0);text-align:center;pointer-events:none;z-index:9;width:min(40vw,420px);animation:mxFlick 3s infinite;padding:14px 18px;background:rgba(0,4,16,.78);border:1px solid rgba(60,140,255,.5);border-radius:12px;backdrop-filter:blur(4px);box-shadow:0 8px 30px rgba(0,0,0,.6);">
+              <div style="font-size:clamp(15px,2vw,22px);color:#8ec0ff;text-shadow:0 1px 3px rgba(0,0,0,.9),0 0 18px rgba(50,120,255,.7);letter-spacing:.06em;">Принять классический путь</div>
+              <div style="margin-top:6px;font-size:12px;letter-spacing:.28em;color:#c2d8ff;">&gt; OPEN_CLASSIC_PDF</div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <!-- NARROW: same pill-on-hands choice as desktop, tap targets over the palms -->
+      <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <!-- RED (left palm) -->
+          <div onClick="{{ onRed }}"
+               style="position:absolute;left:24%;top:66%;transform:translate(-50%,-50%);width:34vw;max-width:180px;height:34vw;max-height:180px;border-radius:50%;cursor:pointer;z-index:8;">
+            <div style="position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(255,70,80,.75);box-shadow:0 0 34px rgba(255,40,60,.75),inset 0 0 26px rgba(255,40,60,.5);animation:mxPulse 2.6s ease-in-out infinite;"></div>
+            <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58%;height:58%;border-radius:50%;background:radial-gradient(circle,rgba(255,40,60,.55) 0%,rgba(255,40,60,0) 70%);"></div>
+          </div>
+          <div onClick="{{ onRed }}" style="position:absolute;left:24%;top:66%;transform:translate(-50%,calc(-50% - 20vw));text-align:center;z-index:9;width:44vw;pointer-events:auto;cursor:pointer;padding:10px 12px;background:rgba(14,0,3,.8);border:1px solid rgba(255,60,70,.55);border-radius:12px;backdrop-filter:blur(4px);box-shadow:0 8px 26px rgba(0,0,0,.6);">
+            <div style="font-size:clamp(13px,3.6vw,17px);color:#ff8a94;text-shadow:0 1px 3px rgba(0,0,0,.9);letter-spacing:.04em;line-height:1.25;">◉ КРАСНАЯ<br />Пробудиться в цифровой реальности</div>
+            <div style="margin-top:5px;font-size:10px;letter-spacing:.2em;color:#ffb3ba;">&gt; ENTER_DIGITAL_RESUME</div>
+          </div>
+
+          <!-- BLUE (right palm) -->
+          <div onClick="{{ onBlue }}"
+               style="position:absolute;left:76%;top:66%;transform:translate(-50%,-50%);width:34vw;max-width:180px;height:34vw;max-height:180px;border-radius:50%;cursor:pointer;z-index:8;">
+            <div style="position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(70,150,255,.75);box-shadow:0 0 34px rgba(50,120,255,.75),inset 0 0 26px rgba(50,120,255,.5);animation:mxPulse 2.6s ease-in-out infinite .6s;"></div>
+            <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58%;height:58%;border-radius:50%;background:radial-gradient(circle,rgba(50,120,255,.55) 0%,rgba(50,120,255,0) 70%);"></div>
+          </div>
+          <div onClick="{{ onBlue }}" style="position:absolute;left:76%;top:66%;transform:translate(-50%,calc(-50% - 20vw));text-align:center;z-index:9;width:44vw;pointer-events:auto;cursor:pointer;padding:10px 12px;background:rgba(0,4,16,.8);border:1px solid rgba(60,140,255,.55);border-radius:12px;backdrop-filter:blur(4px);box-shadow:0 8px 26px rgba(0,0,0,.6);">
+            <div style="font-size:clamp(13px,3.6vw,17px);color:#9ec6ff;text-shadow:0 1px 3px rgba(0,0,0,.9);letter-spacing:.04em;line-height:1.25;">◉ СИНЯЯ<br />Принять классический путь</div>
+            <div style="margin-top:5px;font-size:10px;letter-spacing:.2em;color:#c2d8ff;">&gt; OPEN_CLASSIC_PDF</div>
+          </div>
+
+          <div style="position:absolute;left:0;right:0;bottom:3.5vh;text-align:center;z-index:9;font-size:11px;letter-spacing:.3em;color:#7dffb0;text-shadow:0 1px 3px rgba(0,0,0,.9);pointer-events:none;">▲ КОСНИСЬ ТАБЛЕТКИ ▲</div>
+        </div>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  <!-- ZOOM TRANSITION -->
+  <sc-if value="{{ zooming }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;background:#000300;z-index:40;overflow:hidden;animation:mxShake .18s infinite;">
+      <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:clamp(80px,20vw,260px);color:#00ff5a;letter-spacing:.1em;text-shadow:0 0 40px rgba(0,255,90,.9);animation:mxTunnel 1.5s cubic-bezier(.6,0,.9,.4) forwards;">01001010</div>
+      <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:40vmin;height:40vmin;border-radius:50%;background:radial-gradient(circle,rgba(0,255,90,.5),rgba(0,255,90,0) 70%);animation:mxTunnel 1.5s ease-in forwards;"></div>
+      <div style="position:absolute;inset:0;background:#dfffe9;animation:mxFlash 1.5s ease-in forwards;"></div>
+    </div>
+  </sc-if>
+
+  <!-- DIGITAL RESUME -->
+  <sc-if value="{{ showResume }}" hint-placeholder-val="{{ false }}">
+    <div ref="{{ bindResume }}" id="mx-resume-root" style="position:absolute;inset:0;background:#000300;overflow-y:auto;overflow-x:hidden;">
+      <canvas ref="{{ bindRain }}" id="mx-rain" style="position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.5;"></canvas>
+      <div style="position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.07;background:repeating-linear-gradient(0deg,rgba(0,255,90,.3) 0,rgba(0,255,90,.3) 1px,transparent 2px,transparent 4px);"></div>
+      <div style="position:fixed;inset:0;pointer-events:none;z-index:1;background:radial-gradient(ellipse at 50% 0%,rgba(0,3,0,0) 40%,rgba(0,3,0,.75) 100%);"></div>
+      <!-- readability scrim: darkens the central reading column so text sits on solid ground -->
+      <div style="position:fixed;inset:0;pointer-events:none;z-index:1;background:linear-gradient(90deg,rgba(0,3,0,0) 0%,rgba(0,3,0,.62) 26%,rgba(0,3,0,.72) 50%,rgba(0,3,0,.62) 74%,rgba(0,3,0,0) 100%);"></div>
+
+      <!-- top bar -->
+      <div style="position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:14px clamp(16px,4vw,42px);background:linear-gradient(180deg,rgba(0,3,0,.9),rgba(0,3,0,0));backdrop-filter:blur(2px);">
+        <div style="font-size:12px;letter-spacing:.3em;color:#39d97a;">◉ REC · SESSION//KASMACH.V</div>
+        <button onClick="{{ onBack }}" style="background:rgba(0,20,6,.6);border:1px solid rgba(0,255,90,.4);color:#7dffb0;font-family:inherit;font-size:12px;letter-spacing:.16em;padding:8px 14px;border-radius:8px;cursor:pointer;">&lt; DISCONNECT</button>
+      </div>
+
+      <div style="position:relative;z-index:10;max-width:1080px;margin:0 auto;padding:120px clamp(18px,5vw,48px) 120px;">
+
+        <!-- HERO -->
+        <header style="margin-bottom:96px;">
+          <div data-dec style="font-size:12px;letter-spacing:.4em;color:#3df08a;margin-bottom:18px;">&gt; DECRYPTING_IDENTITY ...</div>
+          <h1 style="margin:0;font-size:clamp(40px,9vw,104px);line-height:.92;letter-spacing:.04em;color:#eafff2;text-shadow:0 0 34px rgba(0,255,90,.45);">
+            <span data-dec>VALERY</span><br /><span data-dec style="color:#00ff5a;text-shadow:0 0 34px rgba(0,255,90,.8);">KASMACH</span>
+          </h1>
+          <div data-dec style="margin-top:22px;font-size:clamp(15px,2.4vw,22px);letter-spacing:.14em;color:#7dffb0;">QA AUTOMATION ENGINEER / QA FULL STACK</div>
+          <div data-dec style="margin-top:8px;font-size:clamp(12px,1.8vw,16px);letter-spacing:.22em;color:#39d97a;">PYTHON · MOBILE · PERFORMANCE · AI-DRIVEN TOOLING</div>
+          <div style="margin-top:30px;display:flex;flex-wrap:wrap;gap:12px;font-size:13px;">
+            <a href="mailto:{{ email }}" style="border:1px solid rgba(0,255,90,.35);padding:9px 14px;border-radius:8px;letter-spacing:.08em;">✉ {{ email }}</a>
+            <a href="tel:{{ phone }}" style="border:1px solid rgba(0,255,90,.35);padding:9px 14px;border-radius:8px;letter-spacing:.08em;">☏ {{ phone }}</a>
+            <span style="border:1px solid rgba(0,255,90,.35);padding:9px 14px;border-radius:8px;letter-spacing:.08em;color:#7dffb0;">⌘ LinkedIn</span>
+            <span style="border:1px solid rgba(0,255,90,.35);padding:9px 14px;border-radius:8px;letter-spacing:.08em;color:#7dffb0;">⎇ GitHub</span>
+          </div>
+        </header>
+
+        <!-- ABOUT -->
+        <section data-reveal style="margin-bottom:96px;opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;">
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:26px;">
+            <span data-dec style="font-size:clamp(22px,4vw,40px);color:#00ff5a;letter-spacing:.06em;text-shadow:0 0 22px rgba(0,255,90,.6);">01 // ABOUT</span>
+            <span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(0,255,90,.6),rgba(0,255,90,0));"></span>
+          </div>
+          <p style="max-width:760px;font-size:clamp(15px,2.1vw,20px);line-height:1.75;color:#cfffe0;text-wrap:pretty;">{{ about }}</p>
+          <div style="margin-top:22px;display:flex;flex-wrap:wrap;gap:10px;font-size:12px;letter-spacing:.14em;color:#7dffb0;">
+            <span data-stagger style="padding:6px 12px;border:1px solid rgba(0,255,90,.3);border-radius:20px;">ISTQB CERTIFIED</span>
+            <span data-stagger style="padding:6px 12px;border:1px solid rgba(0,255,90,.3);border-radius:20px;">CONFERENCE SPEAKER</span>
+            <span data-stagger style="padding:6px 12px;border:1px solid rgba(0,255,90,.3);border-radius:20px;">MENTOR</span>
+          </div>
+        </section>
+
+        <!-- HIGHLIGHTS -->
+        <section data-reveal style="margin-bottom:96px;opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;">
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:30px;">
+            <span data-dec style="font-size:clamp(22px,4vw,40px);color:#00ff5a;letter-spacing:.06em;text-shadow:0 0 22px rgba(0,255,90,.6);">02 // CAREER_HIGHLIGHTS</span>
+            <span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(0,255,90,.6),rgba(0,255,90,0));"></span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;">
+            <sc-for list="{{ highlights }}" as="h" hint-placeholder-count="6">
+              <div data-tilt data-hcard style="position:relative;padding:22px;border:1px solid rgba(0,255,90,.25);border-radius:12px;background:rgba(0,14,5,.55);overflow:hidden;transform-style:preserve-3d;transition:box-shadow .3s ease,border-color .3s ease;">
+                <div data-count style="font-size:clamp(26px,5vw,40px);color:#00ff5a;line-height:1;text-shadow:0 0 20px rgba(0,255,90,.6);position:relative;z-index:2;">{{ h.stat }}</div>
+                <div style="margin-top:6px;font-size:12px;letter-spacing:.2em;color:#7dffb0;">{{ h.tag }}</div>
+                <div style="margin-top:12px;font-size:14px;line-height:1.55;color:#bfffd6;">{{ h.text }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </section>
+
+        <!-- SKILLS -->
+        <section data-reveal style="margin-bottom:96px;opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;">
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px;">
+            <span data-dec style="font-size:clamp(22px,4vw,40px);color:#00ff5a;letter-spacing:.06em;text-shadow:0 0 22px rgba(0,255,90,.6);">03 // SKILL_MATRIX</span>
+            <span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(0,255,90,.6),rgba(0,255,90,0));"></span>
+          </div>
+          <div style="font-size:12px;letter-spacing:.14em;color:#39d97a;margin-bottom:26px;">// hover a node to bring it online</div>
+          <div style="display:flex;flex-direction:column;gap:28px;">
+            <sc-for list="{{ skillGroups }}" as="g" hint-placeholder-count="6">
+              <div>
+                <div style="font-size:13px;letter-spacing:.22em;color:#7dffb0;margin-bottom:12px;">{{ g.name }}</div>
+                <div style="display:flex;flex-wrap:wrap;gap:12px;">
+                  <sc-for list="{{ g.items }}" as="s" hint-placeholder-count="4">
+                    <div data-chip style="padding:12px 16px;border:1px solid rgba(0,255,90,.3);border-radius:10px;background:rgba(0,16,6,.5);font-size:14px;letter-spacing:.04em;color:#d6ffe4;cursor:default;transition:all .25s ease;"
+                         style-hover="border-color:#00ff5a;color:#fff;box-shadow:0 0 24px rgba(0,255,90,.45);transform:translateY(-3px) rotate(-1.2deg);background:rgba(0,40,14,.65);">{{ s }}</div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="margin-top:30px;font-size:13px;letter-spacing:.2em;color:#39d97a;">PLATFORMS //</div>
+          <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:10px;">
+            <sc-for list="{{ platforms }}" as="p" hint-placeholder-count="5">
+              <span data-stagger style="padding:8px 14px;border:1px dashed rgba(0,255,90,.35);border-radius:20px;font-size:13px;color:#bfffd6;letter-spacing:.1em;">{{ p }}</span>
+            </sc-for>
+          </div>
+        </section>
+
+        <!-- EXPERIENCE -->
+        <section data-reveal style="margin-bottom:96px;opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;">
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:34px;">
+            <span data-dec style="font-size:clamp(22px,4vw,40px);color:#00ff5a;letter-spacing:.06em;text-shadow:0 0 22px rgba(0,255,90,.6);">04 // EXPERIENCE_LOG</span>
+            <span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(0,255,90,.6),rgba(0,255,90,0));"></span>
+          </div>
+          <div data-timeline style="position:relative;padding-left:34px;">
+            <div data-timeline-track style="position:absolute;left:9px;top:6px;bottom:6px;width:2px;background:rgba(0,255,90,.14);"></div>
+            <div data-timeline-fill style="position:absolute;left:9px;top:6px;width:2px;height:0;background:linear-gradient(180deg,#8dffc0,rgba(0,255,90,.4));box-shadow:0 0 12px rgba(0,255,90,.9);"></div>
+            <div style="display:flex;flex-direction:column;gap:38px;">
+              <sc-for list="{{ experience }}" as="job" hint-placeholder-count="3">
+                <div data-reveal style="position:relative;opacity:0;transform:translateX(18px);transition:opacity .6s ease,transform .6s ease;">
+                  <div style="position:absolute;left:-33px;top:4px;width:16px;height:16px;border-radius:50%;background:#00ff5a;box-shadow:0 0 18px rgba(0,255,90,.8);border:3px solid #000300;"></div>
+                  <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:baseline;">
+                    <div style="font-size:clamp(17px,2.6vw,23px);color:#eafff2;letter-spacing:.03em;">{{ job.role }}</div>
+                    <div style="font-size:13px;letter-spacing:.14em;color:#3df08a;">{{ job.period }}</div>
+                  </div>
+                  <div style="margin-top:4px;font-size:14px;color:#7dffb0;letter-spacing:.08em;">{{ job.company }}</div>
+                  <ul style="margin:16px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;">
+                    <sc-for list="{{ job.bullets }}" as="b" hint-placeholder-count="4">
+                      <li style="position:relative;padding-left:22px;font-size:14px;line-height:1.6;color:#c8ffdb;text-wrap:pretty;">
+                        <span style="position:absolute;left:0;top:0;color:#00ff5a;">▸</span>{{ b }}
+                      </li>
+                    </sc-for>
+                  </ul>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </section>
+
+        <!-- EDUCATION -->
+        <section data-reveal style="margin-bottom:96px;opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;">
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:30px;">
+            <span data-dec style="font-size:clamp(22px,4vw,40px);color:#00ff5a;letter-spacing:.06em;text-shadow:0 0 22px rgba(0,255,90,.6);">05 // TRAINING_&_LANG</span>
+            <span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(0,255,90,.6),rgba(0,255,90,0));"></span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;">
+            <sc-for list="{{ education }}" as="e" hint-placeholder-count="4">
+              <div data-tilt style="padding:20px;border:1px solid rgba(0,255,90,.22);border-radius:12px;background:rgba(0,14,5,.5);transform-style:preserve-3d;transition:box-shadow .3s ease,border-color .3s ease;">
+                <div style="font-size:12px;letter-spacing:.2em;color:#3df08a;">{{ e.year }}</div>
+                <div style="margin-top:8px;font-size:16px;color:#eafff2;line-height:1.3;">{{ e.title }}</div>
+                <div style="margin-top:6px;font-size:13px;color:#9dffbf;line-height:1.4;">{{ e.sub }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="margin-top:26px;display:flex;flex-wrap:wrap;gap:14px;">
+            <sc-for list="{{ languages }}" as="l" hint-placeholder-count="2">
+              <span data-stagger style="padding:10px 16px;border:1px solid rgba(0,255,90,.3);border-radius:8px;font-size:14px;color:#d6ffe4;letter-spacing:.06em;">{{ l }}</span>
+            </sc-for>
+          </div>
+        </section>
+
+        <!-- CTA -->
+        <section data-reveal style="text-align:center;opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;">
+          <div data-dec style="font-size:clamp(18px,3vw,28px);color:#00ff5a;letter-spacing:.08em;text-shadow:0 0 22px rgba(0,255,90,.6);">&gt; END_OF_TRANSMISSION</div>
+          <p style="margin:16px auto 26px;max-width:520px;font-size:15px;line-height:1.7;color:#bfffd6;">References available upon request. Prefer the paper trail? Take the classic route.</p>
+          <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+            <a href="{{ pdfUrl }}" target="_blank" rel="noopener" style="padding:14px 22px;border:1px solid rgba(60,140,255,.7);border-radius:10px;color:#8ec0ff;letter-spacing:.12em;font-size:13px;box-shadow:0 0 24px rgba(50,120,255,.3);">↳ DOWNLOAD CLASSIC PDF</a>
+            <button onClick="{{ onBack }}" style="padding:14px 22px;background:transparent;border:1px solid rgba(0,255,90,.5);border-radius:10px;color:#7dffb0;font-family:inherit;letter-spacing:.12em;font-size:13px;cursor:pointer;">↺ BACK TO CHOICE</button>
+          </div>
+          <div style="margin-top:40px;font-size:11px;letter-spacing:.3em;color:#2a7d4d;">KASMACH.V · 2026 · THERE IS NO SPOON</div>
+        </section>
+
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;},&quot;pdfUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://drive.google.com/file/d/1rcLT5rTPbU3CxjUbxhVAKpU8eU7eyvgS/view?usp=sharing&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;}}">
+class Component extends DCLogic {
+  state = { screen: 'landing', hover: null, wide: true };
+
+  componentDidMount() {
+    this._onResize = () => {
+      const w = window.innerWidth >= 760 && window.innerWidth >= window.innerHeight * 0.9;
+      if (w !== this.state.wide) this.setState({ wide: w });
+    };
+    this._onResize();
+    window.addEventListener('resize', this._onResize);
+    // one-time gesture fallback: start a browser-blocked video on first interaction
+    const kick = () => { if (this._video) { this._video.muted = true; this._video.play().catch(() => {}); } };
+    window.addEventListener('pointerdown', kick);
+    window.addEventListener('keydown', kick);
+  }
+
+  // ---- ref callbacks: stable identity, fire exactly on element mount/unmount ----
+  bindVideo = (n) => {
+    this._video = n || null;
+    if (n) {
+      n.muted = true; n.loop = true;
+      // hard restart guarantee if 'loop' is ever ignored
+      n.onended = () => { n.currentTime = 0; n.play().catch(() => {}); };
+      n.ontimeupdate = () => { if (n.duration && n.currentTime >= n.duration - 0.05) { n.currentTime = 0; n.play().catch(() => {}); } };
+      const p = n.play(); if (p && p.catch) p.catch(() => {});
+    }
+  };
+  bindLandRain = (n) => {
+    if (n) this._startRainNode(n, 'land', false);
+    else if (this._landRaf) cancelAnimationFrame(this._landRaf);
+  };
+  bindRain = (n) => {
+    if (n) this._startRainNode(n, 'rain', true);
+    else if (this._rainRaf) cancelAnimationFrame(this._rainRaf);
+  };
+  bindResume = (n) => { if (n) { this._revealDone = false; this.setupReveal(n); this.enhanceResume(n); } };
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._onResize);
+    if (this._rainRaf) cancelAnimationFrame(this._rainRaf);
+    if (this._landRaf) cancelAnimationFrame(this._landRaf);
+    if (this._io) this._io.disconnect();
+    if (this._io2) this._io2.disconnect();
+  }
+
+  onRed = () => {
+    if (this.state.screen !== 'landing') return;
+    this.setState({ screen: 'zoom', hover: null });
+    setTimeout(() => this.setState({ screen: 'resume' }), 1500);
+  };
+  // NOTE: swap this URL for a Google Drive share link if desired.
+  onBlue = () => { window.open(this.pdfUrl(), '_blank', 'noopener'); };
+  onBack = () => { this.setState({ screen: 'landing', hover: null }); };
+  pdfUrl = () => this.props.pdfUrl ?? 'https://drive.google.com/file/d/1rcLT5rTPbU3CxjUbxhVAKpU8eU7eyvgS/view?usp=sharing';
+
+  _startRainNode(canvas, key, reactive) {
+    if (!canvas) return;
+    if (this['_' + key + 'Raf']) cancelAnimationFrame(this['_' + key + 'Raf']);
+    const ctx = canvas.getContext('2d');
+    const glyphs = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'.split('');
+    const rnd = () => glyphs[(Math.random() * glyphs.length) | 0];
+    let cols, rows, fs, W, H, streams;
+    const mouse = { x: -9999, y: -9999 };
+    const resize = () => {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+      fs = Math.max(16, Math.round(W / 70));
+      cols = Math.floor(W / fs) + 1;
+      rows = Math.floor(H / fs) + 1;
+      streams = Array.from({ length: cols }, () => ({
+        head: -Math.floor(Math.random() * rows * 1.6),      // integer row of the leading glyph
+        len: 8 + (Math.random() * 12 | 0),                  // trail length in rows
+        cells: Array.from({ length: rows + 40 }, rnd),      // stable glyph per row
+        rowsPerSec: 5.2 + Math.random() * 4.4               // varied fall speed
+      }));
+    };
+    resize();
+    this['_' + key + 'Resize'] = resize;
+    window.addEventListener('resize', resize);
+    if (reactive) {
+      canvas.addEventListener('mousemove', (e) => {
+        const r = canvas.getBoundingClientRect();
+        mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top;
+      });
+      canvas.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+    }
+    let last = performance.now();
+    const draw = (now) => {
+      const dt = Math.min(0.05, (now - last) / 1000); last = now;
+      ctx.fillStyle = '#000300';
+      ctx.fillRect(0, 0, W, H);
+      ctx.font = fs + "px 'Share Tech Mono', monospace";
+      ctx.textBaseline = 'top';
+      for (let i = 0; i < cols; i++) {
+        const s = streams[i];
+        const x = i * fs;
+        const headNear = reactive && Math.abs(x - mouse.x) < fs * 2;
+        s.head += s.rowsPerSec * dt * (headNear ? 1.8 : 1);
+        const headRow = Math.floor(s.head);
+        // occasionally mutate a glyph in view so the column shimmers without smearing
+        if (Math.random() > 0.94) s.cells[((headRow % s.cells.length) + s.cells.length) % s.cells.length] = rnd();
+        for (let t = 0; t < s.len; t++) {
+          const row = headRow - t;
+          if (row < 0 || row > rows) continue;
+          const ch = s.cells[((row % s.cells.length) + s.cells.length) % s.cells.length];
+          const y = row * fs;
+          if (t === 0) {
+            ctx.fillStyle = '#daffe6';
+            ctx.shadowColor = 'rgba(0,255,120,0.9)'; ctx.shadowBlur = fs * 0.5;
+          } else {
+            const a = Math.max(0, 1 - t / s.len) * 0.9;
+            ctx.fillStyle = `rgba(0,255,110,${a})`;
+            ctx.shadowBlur = 0;
+          }
+          const dx = x - mouse.x, dy = y - mouse.y;
+          if (reactive && dx * dx + dy * dy < 120 * 120) ctx.fillStyle = '#ffffff';
+          ctx.fillText(ch, x, y);
+        }
+        ctx.shadowBlur = 0;
+        if (headRow - s.len > rows) {
+          s.head = -Math.floor(Math.random() * rows * 0.8) - 2;
+          s.len = 8 + (Math.random() * 12 | 0);
+          s.rowsPerSec = 5.2 + Math.random() * 4.4;
+        }
+      }
+      this['_' + key + 'Raf'] = requestAnimationFrame(draw);
+    };
+    this['_' + key + 'Raf'] = requestAnimationFrame(draw);
+  }
+
+  setupReveal(root) {
+    if (this._revealDone) return;
+    this._revealDone = true;
+    const chars = 'アイウ01<>=*ﾊﾋﾌ#%&';
+    const rand = () => chars[(Math.random() * chars.length) | 0];
+    const decrypt = (el) => {
+      const target = el.getAttribute('data-final') || el.textContent;
+      el.setAttribute('data-final', target);
+      const len = target.length;
+      let frame = 0;
+      const total = 8 + len * 1.4;
+      const tick = () => {
+        let out = '';
+        for (let i = 0; i < len; i++) {
+          if (target[i] === ' ') { out += ' '; continue; }
+          out += (i < (frame - 6)) ? target[i] : rand();
+        }
+        el.textContent = out;
+        frame++;
+        if (frame <= total) requestAnimationFrame(tick); else el.textContent = target;
+      };
+      tick();
+    };
+    if (this._io) this._io.disconnect();
+    this._io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (!en.isIntersecting) return;
+        const el = en.target;
+        if (el.hasAttribute('data-reveal')) {
+          this.cyberReveal(el);
+        }
+        if (el.hasAttribute('data-dec') && !el._decDone) {
+          el._decDone = true;
+          decrypt(el);
+        }
+        this._io.unobserve(el);
+      });
+    }, { root: root, threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    root.querySelectorAll('[data-reveal],[data-dec]').forEach((el) => this._io.observe(el));
+    // safety net: nothing should stay invisible if the observer never fires
+    setTimeout(() => {
+      root.querySelectorAll('[data-reveal]').forEach((el) => {
+        if (getComputedStyle(el).opacity === '0') { el.style.opacity = '1'; el.style.transform = 'none'; }
+      });
+      root.querySelectorAll(this._staggerSel || '[data-stagger]').forEach((it) => {
+        if (getComputedStyle(it).opacity === '0') it.style.opacity = '';
+      });
+    }, 4000);
+  }
+
+  // ---- WOW layer: gauges, count-up, 3D tilt, spotlight, self-drawing timeline ----
+  enhanceResume(root) {
+    if (this._enhDone) return;
+    this._enhDone = true;
+    // pre-hide everything that staggers in, so cyberReveal can boot it sequentially
+    this._staggerSel = '[data-hcard],[data-chip],[data-tilt],li,[data-stagger]';
+    root.querySelectorAll(this._staggerSel).forEach((it) => { it.style.opacity = '0'; });
+    const NS = 'http://www.w3.org/2000/svg';
+    const ease = (t) => 1 - Math.pow(1 - t, 3);
+
+    // pointer spotlight that follows the cursor across the whole page
+    const spot = document.createElement('div');
+    spot.style.cssText = 'position:fixed;left:0;top:0;width:520px;height:520px;margin:-260px 0 0 -260px;border-radius:50%;pointer-events:none;z-index:2;opacity:0;transition:opacity .4s ease;background:radial-gradient(circle,rgba(0,255,120,.14) 0%,rgba(0,255,120,0) 62%);mix-blend-mode:screen;transform:translate(-9999px,0);';
+    root.appendChild(spot);
+    root.addEventListener('pointermove', (e) => {
+      spot.style.opacity = '1';
+      spot.style.transform = `translate(${e.clientX}px,${e.clientY}px)`;
+    });
+    root.addEventListener('pointerleave', () => { spot.style.opacity = '0'; });
+
+    // radial gauge chart + count-up on each highlight card
+    root.querySelectorAll('[data-hcard]').forEach((card, i) => {
+      const statEl = card.querySelector('[data-count]');
+      const finalTxt = statEl ? statEl.textContent : '';
+      const m = finalTxt.match(/\d+/);
+      const num = m ? parseInt(m[0], 10) : null;
+      const pct = finalTxt.includes('%') ? Math.min(100, num || 0) : (85 + (i * 7) % 15);
+
+      // decorative gauge in the top-right corner
+      const size = 62, r = 24, cx = size / 2, cy = size / 2, C = 2 * Math.PI * r;
+      const svg = document.createElementNS(NS, 'svg');
+      svg.setAttribute('width', size); svg.setAttribute('height', size);
+      svg.style.cssText = 'position:absolute;top:16px;right:16px;z-index:2;opacity:.9;filter:drop-shadow(0 0 6px rgba(0,255,90,.7));';
+      const track = document.createElementNS(NS, 'circle');
+      track.setAttribute('cx', cx); track.setAttribute('cy', cy); track.setAttribute('r', r);
+      track.setAttribute('fill', 'none'); track.setAttribute('stroke', 'rgba(0,255,90,.15)'); track.setAttribute('stroke-width', '4');
+      const arc = document.createElementNS(NS, 'circle');
+      arc.setAttribute('cx', cx); arc.setAttribute('cy', cy); arc.setAttribute('r', r);
+      arc.setAttribute('fill', 'none'); arc.setAttribute('stroke', '#00ff5a'); arc.setAttribute('stroke-width', '4');
+      arc.setAttribute('stroke-linecap', 'round');
+      arc.setAttribute('transform', `rotate(-90 ${cx} ${cy})`);
+      arc.setAttribute('stroke-dasharray', C);
+      arc.setAttribute('stroke-dashoffset', C);
+      svg.appendChild(track); svg.appendChild(arc);
+      card.appendChild(svg);
+      card._gauge = { arc, C, pct };
+
+      if (num !== null) card._count = { el: statEl, final: finalTxt, num, dur: 1100 };
+      if (statEl) statEl.textContent = finalTxt; // keep intact until animated
+    });
+
+    // 3D tilt + moving glare on cards
+    root.querySelectorAll('[data-tilt]').forEach((card) => {
+      const glare = document.createElement('div');
+      glare.style.cssText = 'position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s ease;background:radial-gradient(240px circle at 50% 0%,rgba(180,255,210,.22),rgba(0,0,0,0) 60%);z-index:3;';
+      card.appendChild(glare);
+      const enter = () => { glare.style.opacity = '1'; card.style.borderColor = 'rgba(0,255,90,.7)'; card.style.boxShadow = '0 18px 50px rgba(0,0,0,.5),0 0 34px rgba(0,255,90,.28)'; };
+      const move = (e) => {
+        const b = card.getBoundingClientRect();
+        const px = (e.clientX - b.left) / b.width, py = (e.clientY - b.top) / b.height;
+        const rx = (0.5 - py) * 10, ry = (px - 0.5) * 12;
+        card.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(6px)`;
+        glare.style.background = `radial-gradient(240px circle at ${px * 100}% ${py * 100}%,rgba(180,255,210,.26),rgba(0,0,0,0) 60%)`;
+      };
+      const leave = () => { glare.style.opacity = '0'; card.style.transform = 'perspective(800px)'; card.style.borderColor = ''; card.style.boxShadow = ''; };
+      card.addEventListener('pointerenter', enter);
+      card.addEventListener('pointermove', move);
+      card.addEventListener('pointerleave', leave);
+    });
+
+    // animated fill-sweep on skill chips (staggered when the row appears)
+    root.querySelectorAll('[data-chip]').forEach((chip) => {
+      chip.style.position = 'relative';
+      chip.style.overflow = 'hidden';
+      const bar = document.createElement('div');
+      bar.style.cssText = 'position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,rgba(0,255,90,.28),rgba(0,255,90,.06));z-index:0;transition:width .9s cubic-bezier(.2,.8,.2,1);';
+      chip.insertBefore(bar, chip.firstChild);
+      chip._bar = bar;
+    });
+
+    // one observer to fire count-up, gauge sweep, chip fill, timeline draw
+    const runCount = (c) => {
+      const t0 = performance.now();
+      const step = (now) => {
+        const t = Math.min(1, (now - t0) / c.dur);
+        const val = Math.round(ease(t) * c.num);
+        c.el.textContent = c.final.replace(String(c.num), String(val));
+        if (t < 1) requestAnimationFrame(step); else c.el.textContent = c.final;
+      };
+      requestAnimationFrame(step);
+    };
+    const runGauge = (g) => {
+      const t0 = performance.now(), dur = 1200;
+      const step = (now) => {
+        const t = Math.min(1, (now - t0) / dur);
+        g.arc.setAttribute('stroke-dashoffset', g.C * (1 - ease(t) * g.pct / 100));
+        if (t < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+    const io2 = new IntersectionObserver((ents) => {
+      ents.forEach((en) => {
+        if (!en.isIntersecting) return;
+        const el = en.target;
+        if (el.hasAttribute('data-hcard')) {
+          if (el._count) runCount(el._count);
+          if (el._gauge) runGauge(el._gauge);
+        }
+        if (el.hasAttribute('data-chip') && el._bar) {
+          setTimeout(() => { el._bar.style.width = (55 + Math.random() * 45) + '%'; }, Math.random() * 260);
+        }
+        if (el.hasAttribute('data-timeline')) this.drawTimeline(el);
+        io2.unobserve(el);
+      });
+    }, { root, threshold: 0.25 });
+    root.querySelectorAll('[data-hcard],[data-chip],[data-timeline]').forEach((el) => io2.observe(el));
+    this._io2 = io2;
+  }
+
+  // cyberpunk boot-up entrance for a section: clip-wipe + scan sweep + RGB glitch + stagger
+  cyberReveal(el) {
+    el.style.opacity = '1';
+    el.style.transform = 'none';
+    if (getComputedStyle(el).position === 'static') el.style.position = 'relative';
+    const A = (node, frames, opts) => { try { return node.animate(frames, opts); } catch (e) { return null; } };
+
+    // 1. clip-path wipe upward with an over-bright flash
+    A(el, [
+      { clipPath: 'inset(0 0 100% 0)', filter: 'brightness(2.4) contrast(1.4)' },
+      { clipPath: 'inset(0 0 0 0)', filter: 'brightness(1)' }
+    ], { duration: 720, easing: 'cubic-bezier(.2,.85,.2,1)' });
+
+    // 2. neon scan bar sweeping down the section
+    const bar = document.createElement('div');
+    bar.style.cssText = 'position:absolute;left:-4%;width:108%;height:90px;pointer-events:none;z-index:6;background:linear-gradient(180deg,rgba(0,255,120,0),rgba(0,255,120,.22) 55%,rgba(205,255,225,.8) 80%,rgba(0,255,120,0));mix-blend-mode:screen;filter:blur(1px);';
+    el.appendChild(bar);
+    const h = el.offsetHeight;
+    const sweep = A(bar, [
+      { transform: 'translateY(-120px)', opacity: 0 },
+      { opacity: 1, offset: 0.12 },
+      { opacity: 1, offset: 0.85 },
+      { transform: `translateY(${h}px)`, opacity: 0 }
+    ], { duration: 880, easing: 'cubic-bezier(.4,0,.2,1)' });
+    if (sweep) sweep.onfinish = () => bar.remove(); else setTimeout(() => bar.remove(), 900);
+
+    // 3. RGB-split glitch on the section header
+    const hdr = el.querySelector('[data-dec]');
+    if (hdr) A(hdr, [
+      { transform: 'translateX(-3px) skewX(-6deg)', textShadow: '3px 0 #ff2b5e,-3px 0 #21e6ff' },
+      { transform: 'translateX(4px) skewX(4deg)', textShadow: '-4px 0 #ff2b5e,4px 0 #21e6ff', offset: 0.22 },
+      { transform: 'translateX(-2px)', textShadow: '2px 0 #ff2b5e,-2px 0 #21e6ff', offset: 0.5 },
+      { transform: 'translateX(1px)', textShadow: '0 0 22px rgba(0,255,90,.6)', offset: 0.8 },
+      { transform: 'none', textShadow: '0 0 22px rgba(0,255,90,.6)' }
+    ], { duration: 640, easing: 'steps(9,end)' });
+
+    // 4. staggered "materialise" of this section's own items
+    const items = [...el.querySelectorAll(this._staggerSel)].filter((it) => it.closest('[data-reveal]') === el);
+    items.forEach((it, i) => {
+      setTimeout(() => {
+        it.style.opacity = '';
+        A(it, [
+          { opacity: 0, transform: 'translateY(26px) scale(.96)', filter: 'blur(7px) brightness(1.8)' },
+          { opacity: 1, transform: 'none', filter: 'blur(0) brightness(1)' }
+        ], { duration: 560, easing: 'cubic-bezier(.2,.8,.2,1)' }) || (it.style.opacity = '');
+      }, 130 + i * 72);
+    });
+  }
+
+  drawTimeline(container) {
+    const fill = container.querySelector('[data-timeline-fill]');
+    const track = container.querySelector('[data-timeline-track]');
+    if (!fill || !track) return;
+    const target = track.offsetHeight;
+    const t0 = performance.now(), dur = 1400;
+    const ease = (t) => 1 - Math.pow(1 - t, 3);
+    const step = (now) => {
+      const t = Math.min(1, (now - t0) / dur);
+      fill.style.height = (ease(t) * target) + 'px';
+      if (t < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  renderVals() {
+    const s = this.state;
+    const rh = s.hover === 'red', bh = s.hover === 'blue';
+    return {
+      showLanding: s.screen === 'landing',
+      zooming: s.screen === 'zoom',
+      showResume: s.screen === 'resume',
+      bindVideo: this.bindVideo,
+      bindLandRain: this.bindLandRain,
+      bindRain: this.bindRain,
+      bindResume: this.bindResume,
+      wide: s.wide, narrow: !s.wide,
+      redHover: rh, blueHover: bh,
+      redScale: rh ? 1.16 : 1, blueScale: bh ? 1.16 : 1,
+      redRing: rh ? 1.1 : 1, blueRing: bh ? 1.1 : 1,
+      redGlow: rh ? 0.9 : 0.45, blueGlow: bh ? 0.9 : 0.45,
+      redCore: rh ? 0.55 : 0.3, blueCore: bh ? 0.55 : 0.3,
+      onEnterRed: () => this.setState({ hover: 'red' }),
+      onEnterBlue: () => this.setState({ hover: 'blue' }),
+      onLeave: () => this.setState({ hover: null }),
+      onRed: this.onRed, onBlue: this.onBlue, onBack: this.onBack,
+      pdfUrl: this.pdfUrl(),
+      email: 'vkasmach@gmail.com',
+      phone: '+370 66 943309',
+      about: "QA Engineer / AQA with 8+ years of experience spanning Fullstack QA, Automation, and Client Performance testing. Equally effective as the sole engineer in an early-stage startup or inside a 300+ person game studio — adapting QA strategy to any team scale, domain, and risk profile. My focus: turning quality into a competitive advantage through automation, performance insight, and AI-driven tooling. I build things that last — frameworks, pipelines, and processes that save teams time long after I've moved on to the next challenge.",
+      highlights: [
+        { stat: '5×', tag: 'FASTER RELEASES', text: 'Scaled the mobile device farm and redesigned execution pipelines — cutting full regression runtime from 10–20h to ~2–3h.' },
+        { stat: '98%', tag: 'REGRESSION COVERAGE', text: 'Grew automated coverage from 30% → 98% and first-run pass rate from 70% → 99–100%, driving post-release incidents to near zero.' },
+        { stat: '1-click', tag: 'AUTOMATION', text: 'Slack/Jira integrations deliver full automated reports from a single task — saving 1–5 days of manual work per sprint.' },
+        { stat: 'AI/ML', tag: 'INTEGRATION', text: 'Integrated LLM tooling (Claude, Cursor) into daily workflows and built datasets to train a net for content-quality detection.' },
+        { stat: '0→4', tag: 'TEAM GROWTH', text: 'Progressed from sole QA engineer building teams from scratch to Client Performance QA in a 300+ person studio.' },
+        { stat: '100M+', tag: 'CROSS-INDUSTRY', text: 'Delivered quality for mobile games, health tech and award-winning startups — each with its own risk & compliance profile.' },
+      ],
+      skillGroups: [
+        { name: 'LANGUAGES & FRAMEWORKS', items: ['Python', 'pytest', 'PyCharm', 'Playwright'] },
+        { name: 'MOBILE AUTOMATION', items: ['Airtest', 'Poco', 'iOS WebDriver', 'Device farm mgmt'] },
+        { name: 'CI/CD & INFRASTRUCTURE', items: ['GitHub Actions', 'CI/CD', 'YAML', 'Pipelines'] },
+        { name: 'PERFORMANCE', items: ['Perf profiling', 'Custom tools', 'Charles Proxy', 'Frame/memory analysis'] },
+        { name: 'API & QA TOOLS', items: ['REST API', 'Postman', 'TestRail', 'Jira', 'Confluence'] },
+        { name: 'AI / ML', items: ['Claude', 'Cursor', 'LLM tooling', 'Dataset building'] },
+      ],
+      platforms: ['Android', 'iOS', 'macOS', 'Linux', 'Windows'],
+      experience: [
+        { role: 'AQA → Client Performance QA Engineer', company: 'Moon Active — Family Island / Family Bay · 300+ studio', period: '2022 — PRESENT', bullets: [
+          'Built custom internal performance tools (TrueSight, StandaloneProfiler) that became studio-wide standards for reproducible measurement.',
+          'Led complex SlowFrameTime investigations, diagnosing non-trivial regressions and shipping actionable hotfixes with engineering.',
+          'Engineered automated performance reporting and on-device profiling of loading time, frame drops and memory on real devices.',
+          'As part of a 10-person AQA team, built & maintained 500+ E2E tests on real iOS/Android via the device farm.',
+          'Scaled the farm and cut full regression from 10–20h to ~2–3h; grew coverage 30% → 98%, pass rate 70% → 99–100%.',
+        ] },
+        { role: 'QA Manual → QA Full Stack / AQA (Python)', company: 'Melsoft — My Cafe', period: '2019 — 2022', bullets: [
+          'Owned the full feature quality cycle: test-case authoring → manual testing → automated coverage → infra support.',
+          'Transitioned the role from 80% manual / 20% automation to 100% automated testing, driving a tech-first quality approach.',
+          "Implemented LiveOps 'fool-proofing' guards preventing misconfigured events from reaching production.",
+          "Delivered internal talk 'Charles Proxy: Simplifying Tester Life' (2020), adopted as the team's API-testing reference.",
+        ] },
+        { role: 'QA Manual → QA Team Lead', company: 'Blak-IT.com', period: '2018 — 2019', bullets: [
+          'Joined as sole QA engineer and built the entire QA function from scratch: processes, docs, bug tracking, reporting standards.',
+          'Scaled the team to 4 engineers as QA Lead — setting goals, running reviews, establishing engineering standards.',
+          'Managed up to 4 concurrent projects across healthcare, fitness, engineering and fintech (Profy — Best Startup of 2019, Georgia).',
+        ] },
+      ],
+      education: [
+        { year: '2011 — 2016', title: 'BSc · Computer Science & Electronics', sub: 'Belarusian State University of Informatics and Radioelectronics' },
+        { year: '2019', title: 'Test Manager', sub: 'Quality Lab' },
+        { year: '2018 / 2019', title: 'Mobile Software Testing · Test Planning & Estimation', sub: 'IT Academy' },
+        { year: '2025', title: 'Cursor Basics · Secure Programming', sub: 'Moon Active (Internal) · ISTQB Foundation Level' },
+      ],
+      languages: ['English — Professional', 'Russian — Native'],
+    };
+  }
+}
+</script>
+</body>
+</html>
