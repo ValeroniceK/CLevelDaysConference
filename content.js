@@ -12,19 +12,21 @@
    • Символ «·» — это разделитель-точка, можно копировать как есть.
 ============================================================================= */
 
+const d = (b64) => atob(b64);
+
 window.CV_CONTENT = {
 
   /* ---- ЛИЧНОСТЬ (используется и на заставке, и в резюме) ------------------ */
   firstName: "VALERY",
   lastName:  "KASMACH",
 
-  /* ---- КОНТАКТЫ ---------------------------------------------------------- */
-  email: "vkasmach@gmail.com",
-  phone: "+375336313337",
-  linkedinUrl: "https://www.linkedin.com/in/vkasmach/",
-  githubUrl: "https://github.com/ValeroniceK",
-  telegramUrl: "https://t.me/valeronice",
-  telegramHandle: "@valeronice",
+  /* ---- КОНТАКТЫ (base64) ------------------------------ */
+  email: d("dmthc21hY2hAZ21haWwuY29t"),
+  phone: d("KzM3NTMzNjMxMzMzNw=="),
+  linkedinUrl: d("aHR0cHM6Ly93d3cubGlua2VkaW4uY29tL2luL3ZrYXNtYWNoLw=="),
+  githubUrl: d("aHR0cHM6Ly9naXRodWIuY29tL1ZhbGVyb25pY2VL"),
+  telegramUrl: d("aHR0cHM6Ly90Lm1lL3ZhbGVyb25pY2U="),
+  telegramHandle: d("QHZhbGVyb25pY2U="),
   // Ссылка на «классическое» PDF-резюме (синяя таблетка)
   pdfUrl: "https://drive.google.com/file/d/1rcLT5rTPbU3CxjUbxhVAKpU8eU7eyvgS/view?usp=sharing",
 
