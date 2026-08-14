@@ -20,7 +20,11 @@ window.CV_CONTENT = {
 
   /* ---- КОНТАКТЫ ---------------------------------------------------------- */
   email: "vkasmach@gmail.com",
-  phone: "+370 66 943309",
+  phone: "+375336313337",
+  linkedinUrl: "https://www.linkedin.com/in/vkasmach/",
+  githubUrl: "https://github.com/ValeroniceK",
+  telegramUrl: "https://t.me/valeronice",
+  telegramHandle: "@valeronice",
   // Ссылка на «классическое» PDF-резюме (синяя таблетка)
   pdfUrl: "https://drive.google.com/file/d/1rcLT5rTPbU3CxjUbxhVAKpU8eU7eyvgS/view?usp=sharing",
 
