@@ -213,8 +213,7 @@
             <span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(255,190,60,.6),rgba(255,190,60,0));"></span>
           </div>
           <p class="mx-display" style="max-width:780px;font-size:clamp(21px,3.4vw,32px);line-height:1.35;letter-spacing:.01em;color:#eafff2;text-shadow:0 0 24px rgba(255,190,60,.3);">{{ missionHeadline }}</p>
-          <p style="margin-top:22px;max-width:720px;font-size:clamp(14px,1.9vw,17px);letter-spacing:.05em;color:#ffcf4d;">{{ missionLead }}</p>
-          <ul style="margin:18px 0 0;padding:0;list-style:none;max-width:720px;display:flex;flex-direction:column;gap:14px;">
+          <ul style="margin:26px 0 0;padding:0;list-style:none;max-width:720px;display:flex;flex-direction:column;gap:14px;">
             <sc-for list="{{ missionQuestions }}" as="q" hint-placeholder-count="4">
               <li data-stagger style="position:relative;padding-left:30px;font-size:clamp(15px,2.1vw,19px);line-height:1.6;color:var(--mx-body);text-wrap:pretty;">
                 <span style="position:absolute;left:0;top:1px;color:#ffcf4d;text-shadow:0 0 12px rgba(255,190,60,.7);">▸</span>{{ q }}
@@ -969,7 +968,6 @@ class Component extends DCLogic {
       roleLine: C.roleLine,
       roleSub: C.roleSub,
       missionHeadline: C.missionHeadline,
-      missionLead: C.missionLead,
       missionQuestions: C.missionQuestions || [],
       about: C.about,
       badges: C.badges || [],
