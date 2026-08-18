@@ -243,7 +243,7 @@
             <span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(0,255,90,.6),rgba(0,255,90,0));"></span>
           </div>
           <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;">
-            <sc-for list="{{ highlights }}" as="h" hint-placeholder-count="6">
+            <sc-for list="{{ highlights }}" as="h" hint-placeholder-count="5">
               <div data-tilt data-hcard style="position:relative;padding:22px;border:1px solid rgba(0,255,90,.25);border-radius:12px;background:rgba(0,14,5,.55);overflow:hidden;transform-style:preserve-3d;transition:box-shadow .3s ease,border-color .3s ease;">
                 <div data-count style="font-size:clamp(26px,5vw,40px);color:#00ff5a;line-height:1;text-shadow:0 0 20px rgba(0,255,90,.6);position:relative;z-index:2;">{{ h.stat }}</div>
                 <div style="margin-top:6px;font-size:12px;letter-spacing:.2em;color:#7dffb0;">{{ h.tag }}</div>
@@ -309,28 +309,6 @@
                 </div>
               </sc-for>
             </div>
-          </div>
-        </section>
-
-        <!-- EDUCATION -->
-        <section data-reveal style="margin-bottom:96px;opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;">
-          <div style="display:flex;align-items:center;gap:16px;margin-bottom:30px;">
-            <span data-dec class="mx-h" style="font-size:clamp(24px,4.4vw,46px);color:#00ff5a;letter-spacing:.05em;text-shadow:0 0 22px rgba(0,255,90,.6);">05 // TRAINING_&_LANG</span>
-            <span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(0,255,90,.6),rgba(0,255,90,0));"></span>
-          </div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;">
-            <sc-for list="{{ education }}" as="e" hint-placeholder-count="4">
-              <div data-tilt style="padding:20px;border:1px solid rgba(0,255,90,.22);border-radius:12px;background:rgba(0,14,5,.5);transform-style:preserve-3d;transition:box-shadow .3s ease,border-color .3s ease;">
-                <div style="font-size:12px;letter-spacing:.2em;color:#3df08a;">{{ e.year }}</div>
-                <div style="margin-top:8px;font-size:16px;color:#eafff2;line-height:1.3;">{{ e.title }}</div>
-                <div style="margin-top:6px;font-size:13px;color:#9dffbf;line-height:1.4;">{{ e.sub }}</div>
-              </div>
-            </sc-for>
-          </div>
-          <div style="margin-top:26px;display:flex;flex-wrap:wrap;gap:14px;">
-            <sc-for list="{{ languages }}" as="l" hint-placeholder-count="2">
-              <span data-stagger style="padding:10px 16px;border:1px solid rgba(0,255,90,.3);border-radius:8px;font-size:14px;color:#d6ffe4;letter-spacing:.06em;">{{ l }}</span>
-            </sc-for>
           </div>
         </section>
 
@@ -975,8 +953,6 @@ class Component extends DCLogic {
       skillGroups: C.skillGroups || [],
       platforms: C.platforms || [],
       experience: C.experience || [],
-      education: C.education || [],
-      languages: C.languages || [],
       ctaText: C.ctaText,
     };
   }
