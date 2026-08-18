@@ -48,46 +48,41 @@ window.CV_CONTENT = {
   roleSub:  "PYTHON · MOBILE · PERFORMANCE · AI-DRIVEN TOOLING",
 
   /* ---- 01 // ABOUT ------------------------------------------------------- */
-  about: "QA Engineer / AQA with 8+ years of experience spanning Fullstack QA, Automation, and Client Performance testing. Equally effective as the sole engineer in an early-stage startup or inside a 300+ person game studio — adapting QA strategy to any team scale, domain, and risk profile. My focus: turning quality into a competitive advantage through automation, performance insight, and AI-driven tooling. I build things that last — frameworks, pipelines, and processes that save teams time long after I've moved on to the next challenge.",
+  about: "QA Automation Engineer с 8+ годами опыта — от единственного тестировщика в стартапе до performance-инженера в студии на 300+ человек. Превращаю качество в конкурентное преимущество: ускоряю релизы, автоматизирую рутину и снижаю число багов, которые долетают до пользователей. AI использую не для галочки, а чтобы экономить команде дни ручной работы каждый спринт.",
   // Плашки под текстом About
   badges: ["ISTQB CERTIFIED", "CONFERENCE SPEAKER", "MENTOR"],
 
   /* ---- 02 // CAREER_HIGHLIGHTS ------------------------------------------ */
-  // Каждая карточка: stat (крупная цифра), tag (подпись), text (описание)
+  // Каждая карточка: stat (крупная цифра), tag (подпись, EN), text (описание, RU)
+  // Для конференции — только 4 карточки, самые понятные для C-level
   highlights: [
-    { stat: "5×",     tag: "FASTER RELEASES",      text: "Scaled the mobile device farm and redesigned execution pipelines — cutting full regression runtime from 10–20h to ~2–3h." },
-    { stat: "98%",    tag: "REGRESSION COVERAGE",  text: "Grew automated coverage from 30% → 98% and first-run pass rate from 70% → 99–100%, driving post-release incidents to near zero." },
-    { stat: "1-click", tag: "AUTOMATION",          text: "Slack/Jira integrations deliver full automated reports from a single task — saving 1–5 days of manual work per sprint." },
-    { stat: "AI/ML",  tag: "INTEGRATION",          text: "Integrated LLM tooling (Claude, Cursor) into daily workflows and built datasets to train a net for content-quality detection." },
-    { stat: "0→4",    tag: "TEAM GROWTH",          text: "Progressed from sole QA engineer building teams from scratch to Client Performance QA in a 300+ person studio." },
-    { stat: "100M+",  tag: "CROSS-INDUSTRY",       text: "Delivered quality for mobile games, health tech and award-winning startups — each with its own risk & compliance profile." },
+    { stat: "5×",       tag: "FASTER RELEASES",       text: "Полный цикл регресса — с 10–20 часов до 2–3. Фичи и фиксы доезжают до пользователей быстрее, бизнес быстрее видит результат." },
+    { stat: "98%",      tag: "NEAR-ZERO PROD BUGS",   text: "Автопокрытие выросло с 30% до 98%, первый прогон проходит на 99–100%. Инциденты после релиза — почти исчезли." },
+    { stat: "1–5 дн.",  tag: "MANUAL WORK SAVED",     text: "Автоматические отчёты в Slack и Jira по одной задаче — команда каждый спринт экономит дни ручной работы." },
+    { stat: "AI",       tag: "REAL AI, NOT A DEMO",   text: "Внедрил LLM (Claude, Cursor) в рабочие процессы и обучил модель искать проблемы в контенте — рабочий инструмент, а не эксперимент для отчёта." },
   ],
 
   /* ---- 03 // SKILL_MATRIX ----------------------------------------------- */
-  // Каждая группа: name (заголовок) + items (список навыков)
+  // Каждая группа: name (заголовок, EN) + items (список навыков)
+  // Сжато до 3 групп — детали инструментов не главное для C-level аудитории
   skillGroups: [
-    { name: "LANGUAGES & FRAMEWORKS", items: ["Python", "pytest", "PyCharm", "Playwright"] },
-    { name: "MOBILE AUTOMATION",      items: ["Airtest", "Poco", "iOS WebDriver", "Device farm mgmt"] },
-    { name: "CI/CD & INFRASTRUCTURE", items: ["GitHub Actions", "CI/CD", "YAML", "Pipelines"] },
-    { name: "PERFORMANCE",            items: ["Perf profiling", "Custom tools", "Charles Proxy", "Frame/memory analysis"] },
-    { name: "API & QA TOOLS",         items: ["REST API", "Postman", "TestRail", "Jira", "Confluence"] },
-    { name: "AI / ML",                items: ["Claude", "Cursor", "LLM tooling", "Dataset building"] },
+    { name: "AUTOMATION",   items: ["Python / Playwright", "Mobile: iOS & Android", "CI/CD пайплайны"] },
+    { name: "PERFORMANCE",  items: ["Профилирование на реальных устройствах", "Кастомные dev-инструменты"] },
+    { name: "AI / TOOLING", items: ["Claude, Cursor в работе", "Обучение моделей на своих данных"] },
   ],
   platforms: ["Android", "iOS", "macOS", "Linux", "Windows"],
 
   /* ---- 04 // EXPERIENCE_LOG ---------------------------------------------- */
-  // Каждая работа: role, company, period + bullets (список достижений)
+  // Каждая работа: role, company, period + bullets (список достижений, RU, покороче для конференции)
   experience: [
     {
       role: "AQA → Client Performance QA Engineer",
       company: "Moon Active — Family Island / Family Bay · 300+ studio",
       period: "2022 — PRESENT",
       bullets: [
-        "Built custom internal performance tools (TrueSight, StandaloneProfiler) that became studio-wide standards for reproducible measurement.",
-        "Led complex SlowFrameTime investigations, diagnosing non-trivial regressions and shipping actionable hotfixes with engineering.",
-        "Engineered automated performance reporting and on-device profiling of loading time, frame drops and memory on real devices.",
-        "As part of a 10-person AQA team, built & maintained 500+ E2E tests on real iOS/Android via the device farm.",
-        "Scaled the farm and cut full regression from 10–20h to ~2–3h; grew coverage 30% → 98%, pass rate 70% → 99–100%.",
+        "Создал внутренние инструменты профилирования (TrueSight, StandaloneProfiler) — стали стандартом студии для замеров на реальных устройствах.",
+        "Веду сложные расследования просадок производительности и довожу их до конкретных фиксов вместе с разработкой.",
+        "Ускорил полный регресс с 10–20 часов до 2–3, поднял автопокрытие с 30% до 98%, прогон проходит на 99–100%.",
       ],
     },
     {
@@ -95,10 +90,8 @@ window.CV_CONTENT = {
       company: "Melsoft — My Cafe",
       period: "2019 — 2022",
       bullets: [
-        "Owned the full feature quality cycle: test-case authoring → manual testing → automated coverage → infra support.",
-        "Transitioned the role from 80% manual / 20% automation to 100% automated testing, driving a tech-first quality approach.",
-        "Implemented LiveOps 'fool-proofing' guards preventing misconfigured events from reaching production.",
-        "Delivered internal talk 'Charles Proxy: Simplifying Tester Life' (2020), adopted as the team's API-testing reference.",
+        "Перевёл команду с 80% ручного тестирования на 100% автоматизированное — без потери качества.",
+        "Внедрил защиту от неправильно настроенных ивентов, которые могли уронить продакшен.",
       ],
     },
     {
@@ -106,23 +99,20 @@ window.CV_CONTENT = {
       company: "Blak-IT.com",
       period: "2018 — 2019",
       bullets: [
-        "Joined as sole QA engineer and built the entire QA function from scratch: processes, docs, bug tracking, reporting standards.",
-        "Scaled the team to 4 engineers as QA Lead — setting goals, running reviews, establishing engineering standards.",
-        "Managed up to 4 concurrent projects across healthcare, fitness, engineering and fintech (Profy — Best Startup of 2019, Georgia).",
+        "Пришёл единственным QA и построил процесс с нуля: документация, баг-трекинг, стандарты отчётности.",
+        "Вырос до тим-лида, довёл команду до 4 человек, вёл до 4 проектов одновременно (health-tech, fintech, fitness).",
       ],
     },
   ],
 
   /* ---- 05 // TRAINING & LANGUAGES --------------------------------------- */
-  // Каждая запись: year, title, sub
+  // Каждая запись: year, title, sub — сжато до самого релевантного для C-level
   education: [
-    { year: "2011 — 2016",  title: "BSc · Computer Science & Electronics",             sub: "Belarusian State University of Informatics and Radioelectronics" },
-    { year: "2019",         title: "Test Manager",                                     sub: "Quality Lab" },
-    { year: "2018 / 2019",  title: "Mobile Software Testing · Test Planning & Estimation", sub: "IT Academy" },
-    { year: "2025",         title: "Cursor Basics · Secure Programming",               sub: "Moon Active (Internal) · ISTQB Foundation Level" },
+    { year: "2025", title: "AI / Secure Programming · Cursor Basics", sub: "Moon Active (внутреннее обучение)" },
+    { year: "2019", title: "ISTQB Foundation Level · Test Manager",   sub: "Quality Lab" },
   ],
   languages: ["English — Professional", "Russian — Native"],
 
   /* ---- CTA (финальный блок) --------------------------------------------- */
-  ctaText: "References available upon request. Prefer the paper trail? Take the classic route.",
+  ctaText: "Ускоряю релизы, снижаю баги в проде и экономлю бюджет на ручном QA — без раздувания команды. Обсудим ваш кейс?",
 };
