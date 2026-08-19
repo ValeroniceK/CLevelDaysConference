@@ -32,14 +32,14 @@ window.CV_CONTENT = {
 
   /* ---- ЗАСТАВКА / ВЫБОР ТАБЛЕТКИ ----------------------------------------- */
   landing: {
-    systemLine:   "// SYSTEM :: WAKE_PROTOCOL — READY",
+    systemLine:   "// SYSTEM :: C-LEVEL DAYS — READY",
     tagline:      "QA AUTOMATION ENGINEER · PERFORMANCE · AI",
-    choicePrompt: "MAKE YOUR CHOICE",
+    choicePrompt: "СДЕЛАЙ СВОЙ ВЫБОР",
     // Красная таблетка → цифровое резюме
-    redTitle: "Wake up in the digital reality",
-    redCode:  "ENTER_DIGITAL_RESUME",
+    redTitle: "Проснитесь в цифровой реальности",
+    redCode:  "DIGITAL_INFO_ABOUT_ME",
     // Синяя таблетка → PDF
-    blueTitle: "Take the classic path",
+    blueTitle: "Выберите классический путь",
     blueCode:  "OPEN_CLASSIC_PDF",
   },
 
@@ -48,7 +48,7 @@ window.CV_CONTENT = {
   roleSub:  "PYTHON · MOBILE · PERFORMANCE · AI-DRIVEN TOOLING",
 
   /* ---- 01 // MY C-LEVEL DAYS MISSION (хук — первое, что читают, должно цеплять) --------- */
-  missionHeadline: "Готов усилить Вас и Вашу компанию, если хотя бы один ответ на вопрос — «да»:",
+  missionHeadline: "Буду полезен вашей компании, если Вы ответите «да» хотя бы на один из этих вопросов:",
   // Каждый пункт — диагностический вопрос-хук
   missionQuestions: [
     "Вы хотите вывести свой продукт на новый уровень?",
@@ -70,7 +70,7 @@ window.CV_CONTENT = {
     { stat: "98%",      tag: "REGRESSION COVERAGE",   text: "Покрытие автотестами регрессии выросло с 20% до 98%. Каждый новый релиз — четкий и последовательный процесс." },
     { stat: "Reports",  tag: "ONE-CLICK REPORTING",   text: "Автоматические репорты/отчеты в Slack/Jira и тд. по нажатию одной кнопки. Информативные графики, которые дают четкое понимание о текущем состоянии продукта." },
     { stat: "AI",       tag: "REAL AI, NOT A DEMO",   text: "Внедрил AI подходы в рабочие процессы и обучил модели искать проблемы в контенте." },
-    { stat: "Versatile",        tag: "CROSS-INDUSTRY",        text: "Медицинские, образовательные и инженерные продукты, мобильные игры — и стартап, который прошёл путь от первой строчки документации до награды «Best Startup 2019» (Грузия)." },
+    { stat: "Versatile",        tag: "CROSS-INDUSTRY",        text: "Медицинские, образовательные и инженерные продукты, мобильные игры, стартап, который прошёл путь от первой строчки документации до награды «Best Startup 2019»." },
   ],
 
   /* ---- 04 // SKILL_MATRIX ----------------------------------------------- */
