@@ -100,7 +100,7 @@ window.CV_CONTENT = {
     },
     {
       role: "QA Manual → QA Full Stack / AQA (Python)",
-      company: "Melsoft — My Cafe · 60+ studio, Mobile game"",
+      company: "Melsoft — My Cafe · 60+ studio, Mobile game",
       period: "2019 — 2022",
       bullets: [
         "Был фиче-овнером ключевых фичей проекта, которые выходили в релиз (полный цикл - тестирование + покрытие автотестами фичи.",
