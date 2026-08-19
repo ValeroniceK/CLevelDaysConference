@@ -128,17 +128,17 @@
            solid, always-reachable cards pinned to the bottom of the viewport. -->
       <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
         <div style="position:absolute;left:0;right:0;bottom:0;z-index:9;padding:0 12px calc(14px + env(safe-area-inset-bottom));">
-          <div style="text-align:center;margin-bottom:12px;font-size:11px;letter-spacing:.3em;color:#7dffb0;text-shadow:0 1px 3px rgba(0,0,0,.9);">▼ CHOOSE YOUR PILL ▼</div>
+          <div style="text-align:center;margin-bottom:12px;font-size:11px;letter-spacing:.3em;color:#7dffb0;text-shadow:0 1px 3px rgba(0,0,0,.9);">▼ КРАСНАЯ ИЛИ СИНЯЯ? ▼</div>
           <div style="display:flex;gap:10px;align-items:stretch;">
             <!-- RED -->
             <div onClick="{{ onRed }}" style="flex:1;min-width:0;cursor:pointer;text-align:center;padding:15px 10px;background:rgba(14,0,3,.82);border:1px solid rgba(255,60,70,.6);border-radius:14px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);box-shadow:0 8px 26px rgba(0,0,0,.6),0 0 22px rgba(255,40,60,.22);">
-              <div style="font-size:clamp(14px,4vw,17px);letter-spacing:.12em;color:#ff8a94;text-shadow:0 0 14px rgba(255,40,60,.7);">◉ RED PILL</div>
+              <div style="font-size:clamp(14px,4vw,17px);letter-spacing:.12em;color:#ff8a94;text-shadow:0 0 14px rgba(255,40,60,.7);">◉ RED</div>
               <div style="margin-top:6px;font-size:12px;line-height:1.35;color:#ffd0d5;">{{ redTitle }}</div>
               <div style="margin-top:8px;font-size:10px;letter-spacing:.16em;color:#ffb3ba;">&gt; {{ redCode }}</div>
             </div>
             <!-- BLUE -->
             <div onClick="{{ onBlue }}" style="flex:1;min-width:0;cursor:pointer;text-align:center;padding:15px 10px;background:rgba(0,4,16,.82);border:1px solid rgba(60,140,255,.6);border-radius:14px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);box-shadow:0 8px 26px rgba(0,0,0,.6),0 0 22px rgba(50,120,255,.22);">
-              <div style="font-size:clamp(14px,4vw,17px);letter-spacing:.12em;color:#9ec6ff;text-shadow:0 0 14px rgba(50,120,255,.7);">◉ BLUE PILL</div>
+              <div style="font-size:clamp(14px,4vw,17px);letter-spacing:.12em;color:#9ec6ff;text-shadow:0 0 14px rgba(50,120,255,.7);">◉ BLUE</div>
               <div style="margin-top:6px;font-size:12px;line-height:1.35;color:#cfe2ff;">{{ blueTitle }}</div>
               <div style="margin-top:8px;font-size:10px;letter-spacing:.16em;color:#c2d8ff;">&gt; {{ blueCode }}</div>
             </div>
@@ -176,7 +176,7 @@
 
         <!-- HERO -->
         <header style="margin-bottom:96px;">
-          <div data-dec style="font-size:12px;letter-spacing:.4em;color:#3df08a;margin-bottom:18px;">&gt; DECRYPTING_IDENTITY ...</div>
+          <div data-dec style="font-size:12px;letter-spacing:.4em;color:#3df08a;margin-bottom:18px;">&gt; C-LEVEL DAYS DECRYPTING_IDENTITY ...</div>
           <h1 class="mx-display" style="margin:0;font-size:clamp(52px,11vw,128px);line-height:.86;letter-spacing:.01em;color:#eafff2;text-shadow:0 0 34px rgba(0,255,90,.45);">
             <span data-dec>{{ firstName }}</span><br /><span data-dec class="mx-breath" style="color:#00ff5a;text-shadow:0 0 34px rgba(0,255,90,.8);">{{ lastName }}</span>
           </h1>
