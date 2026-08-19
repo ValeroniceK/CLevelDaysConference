@@ -33,11 +33,11 @@ window.CV_CONTENT = {
   /* ---- ЗАСТАВКА / ВЫБОР ТАБЛЕТКИ ----------------------------------------- */
   landing: {
     systemLine:   "// SYSTEM :: C-LEVEL DAYS — READY",
-    tagline:      "QA AUTOMATION ENGINEER · PERFORMANCE · AI",
+    tagline:      "·QA AUTOMATION ENGINEER ·PERFORMANCE ·AI",
     choicePrompt: "СДЕЛАЙ СВОЙ ВЫБОР",
     // Красная таблетка → цифровое резюме
     redTitle: "Проснитесь в цифровой реальности",
-    redCode:  "DIGITAL_INFO_ABOUT_ME",
+    redCode:  "DIGITAL_INFO ABOUT_ME",
     // Синяя таблетка → PDF
     blueTitle: "Выберите классический путь",
     blueCode:  "OPEN_CLASSIC_PDF",
@@ -45,7 +45,7 @@ window.CV_CONTENT = {
 
   /* ---- ШАПКА РЕЗЮМЕ ------------------------------------------------------ */
   roleLine: "QA AUTOMATION ENGINEER / QA FULL STACK",
-  roleSub:  "PYTHON · MOBILE · PERFORMANCE · AI-DRIVEN TOOLING",
+  roleSub:  "·PYTHON ·MOBILE ·PERFORMANCE ·AI-DRIVEN TOOLING",
 
   /* ---- 01 // MY C-LEVEL DAYS MISSION (хук — первое, что читают, должно цеплять) --------- */
   missionHeadline: "Буду полезен вашей компании, если Вы ответите «да» хотя бы на один из этих вопросов:",
