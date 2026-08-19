@@ -28,7 +28,7 @@ window.CV_CONTENT = {
   telegramUrl: d("aHR0cHM6Ly90Lm1lL3ZhbGVyb25pY2U="),
   telegramHandle: d("QHZhbGVyb25pY2U="),
   // Ссылка на «классическое» PDF-резюме (синяя таблетка)
-  pdfUrl: "https://drive.google.com/file/d/1meicW-YVmzLyuCWkmwzfboaM7q2LsEDc/view?usp=sharing",
+  pdfUrl: "https://drive.google.com/file/d/1mADR5eBdPe7I8TgBpxiOpBSkIzhhzSAP/view?usp=sharing",
 
   /* ---- ЗАСТАВКА / ВЫБОР ТАБЛЕТКИ ----------------------------------------- */
   landing: {
